@@ -25,7 +25,7 @@ s.homepage = "http://nextdots.com/"
 
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
-s.source = { :git => "git@bitbucket.org:nextdotsjolivieri/retargetly-ios.git", :tag => "#{s.version}"}
+s.source = { :git => "https://jose_valderrama@bitbucket.org/nextdotsjolivieri/retargetly-ios.git", :tag => "#{s.version}"}
 
 
 # 7
