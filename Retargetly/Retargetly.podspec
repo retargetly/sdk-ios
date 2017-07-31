@@ -33,9 +33,9 @@ s.dependency 'Alamofire', '~> 4.4'
 
 
 # 8
-s.source_files = "Retargetly/**/*.{swift}"
+s.source_files = "Retargetly/**/*"
 
 
 # 9
-s.resources = "Retargetly/**/*.{png,jpeg,jpg,storyboard,xib}"
+s.resources = "Retargetly/**/*"
 end
