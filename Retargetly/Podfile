@@ -7,9 +7,4 @@ target 'Retargetly' do
 
   # Pods for Retargetly
     pod 'Alamofire', '~> 4.4'
-
-  target 'RetargetlyTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 end

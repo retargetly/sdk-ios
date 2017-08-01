@@ -7,24 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1CA9F9126745B17E8CFDFCD1 /* Pods_Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5FF6F4252F720D3F529B34 /* Pods_Retargetly.framework */; };
+		48009994C5C339ADC12A74CF /* Pods_Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223F6F6448479CD3F854FE0 /* Pods_Retargetly.framework */; };
 		AB947FA31F2F7742001A7440 /* Retargetly.h in Headers */ = {isa = PBXBuildFile; fileRef = AB947FA11F2F7742001A7440 /* Retargetly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
 		AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D6DB5EEBB64D1294B1176B1 /* Pods-Retargetly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.debug.xcconfig"; sourceTree = "<group>"; };
-		17DD8839CE8BD600A122CFA9 /* Pods-RetargetlyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RetargetlyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RetargetlyTests/Pods-RetargetlyTests.release.xcconfig"; sourceTree = "<group>"; };
-		1C5FF6F4252F720D3F529B34 /* Pods_Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		448D2B0978F0516197363FF0 /* Pods-Retargetly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.release.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.release.xcconfig"; sourceTree = "<group>"; };
-		96EF7F56A6B4C86858CADBD8 /* Pods-RetargetlyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RetargetlyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RetargetlyTests/Pods-RetargetlyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		003A07E72813E2421B78C05E /* Pods-Retargetly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.release.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.release.xcconfig"; sourceTree = "<group>"; };
+		0223F6F6448479CD3F854FE0 /* Pods_Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50AF8BAE80B87FFCBCC70509 /* Pods-Retargetly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.debug.xcconfig"; sourceTree = "<group>"; };
 		AB947F9E1F2F7742001A7440 /* Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB947FA11F2F7742001A7440 /* Retargetly.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Retargetly.h; sourceTree = "<group>"; };
 		AB947FA21F2F7742001A7440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB947FAB1F2F791E001A7440 /* RManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RManager.swift; sourceTree = "<group>"; };
 		AB947FAD1F2F79DD001A7440 /* REvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REvent.swift; sourceTree = "<group>"; };
-		C52322ECA9C858F07D9BEA55 /* Pods_RetargetlyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RetargetlyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,20 +29,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CA9F9126745B17E8CFDFCD1 /* Pods_Retargetly.framework in Frameworks */,
+				48009994C5C339ADC12A74CF /* Pods_Retargetly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0036E1BBA21502AFFFCAA4D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0223F6F6448479CD3F854FE0 /* Pods_Retargetly.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34D8CDB0EFC3E3D00BE49632 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				50AF8BAE80B87FFCBCC70509 /* Pods-Retargetly.debug.xcconfig */,
+				003A07E72813E2421B78C05E /* Pods-Retargetly.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		AB947F941F2F7742001A7440 = {
 			isa = PBXGroup;
 			children = (
 				AB947FA01F2F7742001A7440 /* Retargetly */,
 				AB947F9F1F2F7742001A7440 /* Products */,
-				E8631D13F4F3F0254EBC87FE /* Pods */,
-				E4CF3B1D7960061D3DA0AEF8 /* Frameworks */,
+				34D8CDB0EFC3E3D00BE49632 /* Pods */,
+				0036E1BBA21502AFFFCAA4D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,26 +90,6 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		E4CF3B1D7960061D3DA0AEF8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1C5FF6F4252F720D3F529B34 /* Pods_Retargetly.framework */,
-				C52322ECA9C858F07D9BEA55 /* Pods_RetargetlyTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E8631D13F4F3F0254EBC87FE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0D6DB5EEBB64D1294B1176B1 /* Pods-Retargetly.debug.xcconfig */,
-				448D2B0978F0516197363FF0 /* Pods-Retargetly.release.xcconfig */,
-				96EF7F56A6B4C86858CADBD8 /* Pods-RetargetlyTests.debug.xcconfig */,
-				17DD8839CE8BD600A122CFA9 /* Pods-RetargetlyTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -114,12 +108,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB947FA61F2F7742001A7440 /* Build configuration list for PBXNativeTarget "Retargetly" */;
 			buildPhases = (
-				5387E3F5D2278459C16D9813 /* [CP] Check Pods Manifest.lock */,
+				BE20A7FC502D1B786BD6D952 /* [CP] Check Pods Manifest.lock */,
 				AB947F991F2F7742001A7440 /* Sources */,
 				AB947F9A1F2F7742001A7440 /* Frameworks */,
 				AB947F9B1F2F7742001A7440 /* Headers */,
 				AB947F9C1F2F7742001A7440 /* Resources */,
-				58A24005BD0D02A0CBB63CAB /* [CP] Copy Pods Resources */,
+				82DC40A34DD3AA109FA208AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -174,22 +168,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5387E3F5D2278459C16D9813 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		58A24005BD0D02A0CBB63CAB /* [CP] Copy Pods Resources */ = {
+		82DC40A34DD3AA109FA208AC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -202,6 +181,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE20A7FC502D1B786BD6D952 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -334,7 +328,7 @@
 		};
 		AB947FA71F2F7742001A7440 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D6DB5EEBB64D1294B1176B1 /* Pods-Retargetly.debug.xcconfig */;
+			baseConfigurationReference = 50AF8BAE80B87FFCBCC70509 /* Pods-Retargetly.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -357,7 +351,7 @@
 		};
 		AB947FA81F2F7742001A7440 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 448D2B0978F0516197363FF0 /* Pods-Retargetly.release.xcconfig */;
+			baseConfigurationReference = 003A07E72813E2421B78C05E /* Pods-Retargetly.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
