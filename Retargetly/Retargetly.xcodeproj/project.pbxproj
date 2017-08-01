@@ -7,26 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F0D6FAC17D8C99B4CC42CC8 /* Pods_RetargetlyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C52322ECA9C858F07D9BEA55 /* Pods_RetargetlyTests.framework */; };
 		1CA9F9126745B17E8CFDFCD1 /* Pods_Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5FF6F4252F720D3F529B34 /* Pods_Retargetly.framework */; };
-		AB64E6221F2FB50F00885CAB /* RetargetlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB64E6211F2FB50F00885CAB /* RetargetlyTests.swift */; };
-		AB64E6241F2FB50F00885CAB /* Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB947F9E1F2F7742001A7440 /* Retargetly.framework */; };
-		AB64E62A1F2FB60600885CAB /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
-		AB64E62B1F2FB63A00885CAB /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
 		AB947FA31F2F7742001A7440 /* Retargetly.h in Headers */ = {isa = PBXBuildFile; fileRef = AB947FA11F2F7742001A7440 /* Retargetly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
 		AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		AB64E6251F2FB50F00885CAB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AB947F951F2F7742001A7440 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AB947F9D1F2F7742001A7440;
-			remoteInfo = Retargetly;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0D6DB5EEBB64D1294B1176B1 /* Pods-Retargetly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.debug.xcconfig"; sourceTree = "<group>"; };
@@ -34,9 +19,6 @@
 		1C5FF6F4252F720D3F529B34 /* Pods_Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		448D2B0978F0516197363FF0 /* Pods-Retargetly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.release.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.release.xcconfig"; sourceTree = "<group>"; };
 		96EF7F56A6B4C86858CADBD8 /* Pods-RetargetlyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RetargetlyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RetargetlyTests/Pods-RetargetlyTests.debug.xcconfig"; sourceTree = "<group>"; };
-		AB64E61F1F2FB50F00885CAB /* RetargetlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetargetlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB64E6211F2FB50F00885CAB /* RetargetlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetargetlyTests.swift; sourceTree = "<group>"; };
-		AB64E6231F2FB50F00885CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB947F9E1F2F7742001A7440 /* Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB947FA11F2F7742001A7440 /* Retargetly.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Retargetly.h; sourceTree = "<group>"; };
 		AB947FA21F2F7742001A7440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,15 +28,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AB64E61C1F2FB50F00885CAB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AB64E6241F2FB50F00885CAB /* Retargetly.framework in Frameworks */,
-				0F0D6FAC17D8C99B4CC42CC8 /* Pods_RetargetlyTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AB947F9A1F2F7742001A7440 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,20 +39,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AB64E6201F2FB50F00885CAB /* RetargetlyTests */ = {
-			isa = PBXGroup;
-			children = (
-				AB64E6211F2FB50F00885CAB /* RetargetlyTests.swift */,
-				AB64E6231F2FB50F00885CAB /* Info.plist */,
-			);
-			path = RetargetlyTests;
-			sourceTree = "<group>";
-		};
 		AB947F941F2F7742001A7440 = {
 			isa = PBXGroup;
 			children = (
 				AB947FA01F2F7742001A7440 /* Retargetly */,
-				AB64E6201F2FB50F00885CAB /* RetargetlyTests */,
 				AB947F9F1F2F7742001A7440 /* Products */,
 				E8631D13F4F3F0254EBC87FE /* Pods */,
 				E4CF3B1D7960061D3DA0AEF8 /* Frameworks */,
@@ -90,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				AB947F9E1F2F7742001A7440 /* Retargetly.framework */,
-				AB64E61F1F2FB50F00885CAB /* RetargetlyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,27 +110,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		AB64E61E1F2FB50F00885CAB /* RetargetlyTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AB64E6291F2FB50F00885CAB /* Build configuration list for PBXNativeTarget "RetargetlyTests" */;
-			buildPhases = (
-				F0379160F541ED811A1AAD9E /* [CP] Check Pods Manifest.lock */,
-				AB64E61B1F2FB50F00885CAB /* Sources */,
-				AB64E61C1F2FB50F00885CAB /* Frameworks */,
-				AB64E61D1F2FB50F00885CAB /* Resources */,
-				BE688B7E38A6747A186978A4 /* [CP] Embed Pods Frameworks */,
-				D9DDDED9CE39F77D5592E1F3 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AB64E6261F2FB50F00885CAB /* PBXTargetDependency */,
-			);
-			name = RetargetlyTests;
-			productName = RetargetlyTests;
-			productReference = AB64E61F1F2FB50F00885CAB /* RetargetlyTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		AB947F9D1F2F7742001A7440 /* Retargetly */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB947FA61F2F7742001A7440 /* Build configuration list for PBXNativeTarget "Retargetly" */;
@@ -199,9 +140,6 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = NextDots;
 				TargetAttributes = {
-					AB64E61E1F2FB50F00885CAB = {
-						CreatedOnToolsVersion = 9.0;
-					};
 					AB947F9D1F2F7742001A7440 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
@@ -221,19 +159,11 @@
 			projectRoot = "";
 			targets = (
 				AB947F9D1F2F7742001A7440 /* Retargetly */,
-				AB64E61E1F2FB50F00885CAB /* RetargetlyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AB64E61D1F2FB50F00885CAB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AB947F9C1F2F7742001A7440 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -274,64 +204,9 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BE688B7E38A6747A186978A4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RetargetlyTests/Pods-RetargetlyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9DDDED9CE39F77D5592E1F3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RetargetlyTests/Pods-RetargetlyTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F0379160F541ED811A1AAD9E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		AB64E61B1F2FB50F00885CAB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AB64E62A1F2FB60600885CAB /* RManager.swift in Sources */,
-				AB64E6221F2FB50F00885CAB /* RetargetlyTests.swift in Sources */,
-				AB64E62B1F2FB63A00885CAB /* REvent.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AB947F991F2F7742001A7440 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,41 +218,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		AB64E6261F2FB50F00885CAB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AB947F9D1F2F7742001A7440 /* Retargetly */;
-			targetProxy = AB64E6251F2FB50F00885CAB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		AB64E6271F2FB50F00885CAB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 96EF7F56A6B4C86858CADBD8 /* Pods-RetargetlyTests.debug.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = RetargetlyTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nextdots.RetargetlyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		AB64E6281F2FB50F00885CAB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17DD8839CE8BD600A122CFA9 /* Pods-RetargetlyTests.release.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = RetargetlyTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nextdots.RetargetlyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		AB947FA41F2F7742001A7440 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -539,14 +380,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AB64E6291F2FB50F00885CAB /* Build configuration list for PBXNativeTarget "RetargetlyTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AB64E6271F2FB50F00885CAB /* Debug */,
-				AB64E6281F2FB50F00885CAB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
 		AB947F981F2F7742001A7440 /* Build configuration list for PBXProject "Retargetly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

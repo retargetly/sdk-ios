@@ -9,7 +9,7 @@ s.requires_arc = true
 
 
 # 2
-s.version = '0.1.5'
+s.version = '0.1.6'
 
 
 # 3
@@ -29,9 +29,9 @@ s.source = { :git => 'https://jose_valderrama@bitbucket.org/nextdotsjolivieri/re
 
 
 # 7
-s.dependency 'Alamofire', '~> 4.4'
+s.dependency = 'Alamofire', '~> 4.4'
 
 
 # 8
-s.source_files = 'Retargetly/Source/*.swift'
+s.source_files = 'Retargetly/**/*.{swift}'
 end
