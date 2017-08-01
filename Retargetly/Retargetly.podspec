@@ -9,7 +9,7 @@ s.requires_arc = true
 
 
 # 2
-s.version = "0.1.1"
+s.version = "0.1.2"
 
 
 # 3
@@ -24,8 +24,8 @@ s.author = { "José Valderrama" => "josevalderrama18@gmail.com" }
 s.homepage = "http://nextdots.com/"
 
 
-# 6 - Replace this URL with your own Git URL from "Quick Setup"
-s.source = { :git => "https://jose_valderrama@bitbucket.org/nextdotsjolivieri/retargetly-ios.git", :tag => "#{s.version}"}
+# 6
+s.source = { :git => "https://jose_valderrama@bitbucket.org/nextdotsjolivieri/retargetly-ios.git", :tag => s.version }
 
 
 # 7
@@ -33,5 +33,5 @@ s.dependency 'Alamofire', '~> 4.4'
 
 
 # 8
-s.source_files = "Retargetly/**/*.{h, swift}"
+s.source_files = "Source/*.swift"
 end
