@@ -9,11 +9,11 @@ s.requires_arc = true
 
 
 # 2
-s.version = '0.1.4'
+s.version = '0.1.5'
 
 
 # 3
-s.license = 'MIT'
+s.license = { :type => 'MIT', :file => 'LICENSE' }
 
 
 # 4
@@ -33,5 +33,5 @@ s.dependency 'Alamofire', '~> 4.4'
 
 
 # 8
-s.source_files = 'Source/*.swift'
+s.source_files = 'Retargetly/Source/*.swift'
 end
