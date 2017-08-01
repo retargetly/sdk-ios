@@ -34,4 +34,5 @@ s.dependency 'Alamofire', '~> 4.4'
 
 # 8
 s.source_files = 'Retargetly/**/*.{swift}'
+
 end
