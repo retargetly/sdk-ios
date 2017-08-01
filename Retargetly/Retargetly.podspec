@@ -29,7 +29,7 @@ s.source = { :git => 'https://jose_valderrama@bitbucket.org/nextdotsjolivieri/re
 
 
 # 7
-s.dependency = 'Alamofire', '~> 4.4'
+s.dependency 'Alamofire', '~> 4.4'
 
 
 # 8
