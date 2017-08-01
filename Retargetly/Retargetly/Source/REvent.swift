@@ -10,7 +10,7 @@ import Foundation
 
 typealias JSON = [REventParam : Any]
 
-enum REventType: String {
+public enum REventType: String {
     /// User opened app
     case open = "open"
     /// User changed view

@@ -43,7 +43,7 @@ public class RManager {
         self.language = Locale.current.languageCode
     }
     
-    static func initiate(with pid: String, sid: String? = nil) -> RManager? {
+    public static func initiate(with pid: String, sid: String? = nil) -> RManager? {
         shared = RManager(with: pid, sid: sid)
         return shared
     }
@@ -58,7 +58,7 @@ public class RManager {
     
     // ** TRACK **
     
-    static func track(et: REventType, value: String?) {
+    public static func track(et: REventType, value: String?) {
         validate().track(with: REvent(et: et, value: value))
     }
     
