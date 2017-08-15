@@ -8,9 +8,8 @@
 
 import Foundation
 
-typealias JSON = [REventParam : Any]
-
-public enum REventType: String {
+/// Type of event to be tracked
+internal enum REventType: String {
     /// User opened app
     case open = "open"
     /// User changed view
@@ -19,6 +18,7 @@ public enum REventType: String {
     case custom = "custom"
 }
 
+/// Param name to send in json
 enum REventParam: String {
     /// Event type
     case et = "et"
@@ -40,38 +40,38 @@ enum REventParam: String {
     case lan = "lan"
 }
 
+/// Event itself, contains information to be send as json
 struct REvent {
     let et: REventType
     let value: String?
     
-    init(et: REventType, value: String?) {
-        self.et = et
-        self.value = value
-    }
-    
-    func toJSON() -> JSON? {
-        /// checks if manager has already initialized, else return nil
+    var parameters: [String: Any]? {
         guard let manager = RManager.shared else { return nil }
         
-        var json : JSON =
+        var parameters : [String: Any] =
             [
-                .et : et,
-                .app : manager.app,
-                .uid : manager.uid,
-                .pid : manager.pid,
-                .mf : manager.mf,
-                .device : manager.device,
-                .lan : manager.language ?? ""
-            ]
+                REventParam.et.rawValue : et.rawValue,
+                REventParam.app.rawValue : manager.app,
+                REventParam.uid.rawValue : manager.uid,
+                REventParam.pid.rawValue : manager.pid,
+                REventParam.mf.rawValue : manager.mf,
+                REventParam.device.rawValue : manager.device,
+                REventParam.lan.rawValue : manager.language ?? ""
+        ]
         
         if let value = self.value {
-            json.updateValue(value, forKey: .value)
+            parameters.updateValue(value, forKey: REventParam.value.rawValue)
         }
         
         if let sid = manager.sid {
-            json.updateValue(sid, forKey: .sid)
+            parameters.updateValue(sid, forKey: REventParam.sid.rawValue)
         }
         
-        return json
+        return parameters
+    }
+    
+    init(et: REventType, value: String?) {
+        self.et = et
+        self.value = value
     }
 }

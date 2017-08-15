@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48009994C5C339ADC12A74CF /* Pods_Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223F6F6448479CD3F854FE0 /* Pods_Retargetly.framework */; };
+		AB928AF41F3B727E0032BB46 /* UIDevice+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB928AF31F3B727E0032BB46 /* UIDevice+Additionals.swift */; };
 		AB947FA31F2F7742001A7440 /* Retargetly.h in Headers */ = {isa = PBXBuildFile; fileRef = AB947FA11F2F7742001A7440 /* Retargetly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
 		AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
+		ABDCF3D41F3D76DA005A9BA0 /* RViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDCF3D31F3D76DA005A9BA0 /* RViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		003A07E72813E2421B78C05E /* Pods-Retargetly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.release.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.release.xcconfig"; sourceTree = "<group>"; };
-		0223F6F6448479CD3F854FE0 /* Pods_Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50AF8BAE80B87FFCBCC70509 /* Pods-Retargetly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Retargetly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly.debug.xcconfig"; sourceTree = "<group>"; };
+		AB928AF31F3B727E0032BB46 /* UIDevice+Additionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Additionals.swift"; sourceTree = "<group>"; };
 		AB947F9E1F2F7742001A7440 /* Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB947FA11F2F7742001A7440 /* Retargetly.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Retargetly.h; sourceTree = "<group>"; };
 		AB947FA21F2F7742001A7440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB947FAB1F2F791E001A7440 /* RManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RManager.swift; sourceTree = "<group>"; };
 		AB947FAD1F2F79DD001A7440 /* REvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REvent.swift; sourceTree = "<group>"; };
+		ABDCF3D31F3D76DA005A9BA0 /* RViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,28 +29,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48009994C5C339ADC12A74CF /* Pods_Retargetly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0036E1BBA21502AFFFCAA4D6 /* Frameworks */ = {
+		AB66553C1F3CE1880086D111 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0223F6F6448479CD3F854FE0 /* Pods_Retargetly.framework */,
+				AB928AF31F3B727E0032BB46 /* UIDevice+Additionals.swift */,
+				ABDCF3D31F3D76DA005A9BA0 /* RViewController.swift */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		34D8CDB0EFC3E3D00BE49632 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				50AF8BAE80B87FFCBCC70509 /* Pods-Retargetly.debug.xcconfig */,
-				003A07E72813E2421B78C05E /* Pods-Retargetly.release.xcconfig */,
-			);
-			name = Pods;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		AB947F941F2F7742001A7440 = {
@@ -58,8 +49,6 @@
 			children = (
 				AB947FA01F2F7742001A7440 /* Retargetly */,
 				AB947F9F1F2F7742001A7440 /* Products */,
-				34D8CDB0EFC3E3D00BE49632 /* Pods */,
-				0036E1BBA21502AFFFCAA4D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,10 +73,19 @@
 		AB947FA91F2F78D0001A7440 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				ABDCF3D21F3D76A3005A9BA0 /* Core */,
+				AB66553C1F3CE1880086D111 /* Helpers */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		ABDCF3D21F3D76A3005A9BA0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
 				AB947FAB1F2F791E001A7440 /* RManager.swift */,
 				AB947FAD1F2F79DD001A7440 /* REvent.swift */,
 			);
-			path = Source;
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,12 +106,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB947FA61F2F7742001A7440 /* Build configuration list for PBXNativeTarget "Retargetly" */;
 			buildPhases = (
-				BE20A7FC502D1B786BD6D952 /* [CP] Check Pods Manifest.lock */,
 				AB947F991F2F7742001A7440 /* Sources */,
 				AB947F9A1F2F7742001A7440 /* Frameworks */,
 				AB947F9B1F2F7742001A7440 /* Headers */,
 				AB947F9C1F2F7742001A7440 /* Resources */,
-				82DC40A34DD3AA109FA208AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,45 +163,14 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		82DC40A34DD3AA109FA208AC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Retargetly/Pods-Retargetly-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE20A7FC502D1B786BD6D952 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		AB947F991F2F7742001A7440 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */,
+				AB928AF41F3B727E0032BB46 /* UIDevice+Additionals.swift in Sources */,
+				ABDCF3D41F3D76DA005A9BA0 /* RViewController.swift in Sources */,
 				AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -316,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -328,7 +293,6 @@
 		};
 		AB947FA71F2F7742001A7440 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50AF8BAE80B87FFCBCC70509 /* Pods-Retargetly.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -351,7 +315,6 @@
 		};
 		AB947FA81F2F7742001A7440 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 003A07E72813E2421B78C05E /* Pods-Retargetly.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
