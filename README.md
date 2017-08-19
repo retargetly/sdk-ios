@@ -1,5 +1,3 @@
-![picture](https://www.google.com.ar/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiZvrPHxePVAhVCC5AKHXcXCqAQjRwIBw&url=http%3A%2F%2Fretargetly.com%2Fblog%2F&psig=AFQjCNHdKi4Vgg2epq-NziOD0Y2_iMg34g&ust=1503240544074891)
-
 # Retargetly
 
 Retargetly is a tracking library for iOS.
@@ -13,9 +11,9 @@ After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 The main focus of the library is to track events, separately in three event-types:
 
 ```
-open - for Library Initialization
-change - for front view changed
-custom - for developer's choice
+open    - for Library Initialization
+change  - for front view changed
+custom  - for developer's choice
 ```
 
 ### Prerequisites
@@ -110,6 +108,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **José Valderrama** - [NextDots](http://nextdots.com/)
+* **Josï¿½ Valderrama** - [NextDots](http://nextdots.com/)
 
 
