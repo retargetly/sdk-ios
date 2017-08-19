@@ -83,7 +83,7 @@ Finally, in order to track an 'custom' event, you need to do so:
 import Retargetly
 ...
 
-func anAction {
+func anAction() {
 
     ...
     RManager.track(value: aValue) {(error) in
@@ -108,6 +108,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Josï¿½ Valderrama** - [NextDots](http://nextdots.com/)
+* [**José Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
 
 
