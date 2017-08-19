@@ -1,6 +1,6 @@
 # Retargetly
 
-Retargetly is a tracking library for iOS
+Retargetly is a tracking library for iOS.
 
 ## Getting Started
 
@@ -11,9 +11,9 @@ After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 The main focus of the library is to track events, separately in three event-types:
 
 ```
-open - For Library Initialization
-change - For front view changed
-custom - For developer's choice
+open    - for Library Initialization
+change  - for front view changed
+custom  - for developer's choice
 ```
 
 ### Prerequisites
@@ -40,7 +40,7 @@ pod 'Retargetly'
 And finally, install the pods into project:
 
 ```
-pod install
+$ pod install
 ```
 
 
@@ -83,7 +83,7 @@ Finally, in order to track an 'custom' event, you need to do so:
 import Retargetly
 ...
 
-func anAction {
+func anAction() {
 
     ...
     RManager.track(value: aValue) {(error) in
@@ -108,6 +108,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **JosÃ© Valderrama** - [NextDots](http://nextdots.com/)
+* [**José Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
 
 
