@@ -1,3 +1,5 @@
+![Retargetly](https://www.google.com.ar/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjdoou_0ePVAhUGFpAKHZffB5sQjRwIBw&url=http%3A%2F%2Fretargetly.com%2Fblog%2F&psig=AFQjCNEshWp0HgH2sUkuCKZVzm5ke7fWLg&ust=1503243735626480)
+
 # Retargetly
 
 Retargetly is a tracking library for iOS.
@@ -108,6 +110,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* [**José Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
+* [**Josï¿½ Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
 
 
