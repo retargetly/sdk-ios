@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="http://beta.retargetly.com/wp-content/uploads/2015/07/Logo.png" alt="Retargetly"/>
-</p>
+![Retargetly](http://beta.retargetly.com/wp-content/uploads/2015/07/Logo.png)
 
 # Retargetly
 
