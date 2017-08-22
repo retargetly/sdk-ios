@@ -47,8 +47,9 @@ public class RManager {
     let language: String?
     let iosHash: String
     
-    /// Singleton instance
     private static var shared: RManager! = nil
+    
+    /// Singleton instance
     public static var `default`: RManager {
         get {
             if shared == nil {
@@ -116,14 +117,18 @@ public class RManager {
         guard let url = URL(string: endpoint) else {
             fatalError(malformedURLErrorMessage)
         }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue(self.iosHash, forHTTPHeaderField: EndpointParam.ios_hash.rawValue)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             fatalError(malformedParamsErrorMessage)
         }
+        
         request.httpBody = httpBody
+        
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
             callback?(error)

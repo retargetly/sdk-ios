@@ -19,7 +19,7 @@ internal enum REventType: String {
 }
 
 /// Param name to send in json
-enum REventParam: String {
+internal enum REventParam: String {
     /// Event type
     case et = "et"
     /// String value that makes sense depending on 'et' eventy type
@@ -41,7 +41,7 @@ enum REventParam: String {
 }
 
 /// Event itself, contains information to be send as json
-struct REvent {
+internal struct REvent {
     let et: REventType
     let value: String?
     
