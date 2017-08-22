@@ -88,7 +88,7 @@ import Retargetly
 func anAction() {
 
     ...
-    RManager.track(value: aValue) {(error) in
+    RManager.default.track(value: aValue) {(error) in
         print(error)
     }
     ...
