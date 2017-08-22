@@ -96,7 +96,7 @@ func anAction() {
 }
 ```
 
-The 'custom' event, allows you to have an complation callback, and it might have an 'error' object if it ocurred.
+The 'custom' event, allows you to have an complation callback, and it might have an 'error' object if it occurred.
 
 ## Built With
 
@@ -110,6 +110,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* [**Jos� Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
+* [**José Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
 
 
