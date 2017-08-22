@@ -11,6 +11,7 @@ import Foundation
 // MARK: Error Messages
 
 private let initializationFatalErrorMessage = "Please initialize RManager correctly"
+private let initializationFieldsFatalErrorMessage = "Please initialize RManager correctly, some fields are empty or not allowed"
 private let openEventWithValueErrorMessage = "Please don't provide a 'value' for <open> event"
 private let noInformationOnEventErrorMessage = "Event without params to send"
 private let malformedParamsErrorMessage = "Some information is malformed on params"
@@ -31,7 +32,7 @@ fileprivate enum EndpointParam: String {
 /**
  Events Manager, allows to track events.
  
- Manages an singleton property named 'shared' for its use
+ Manages an singleton property named 'default' for its use
 */
 public class RManager {
     
@@ -47,16 +48,27 @@ public class RManager {
     let iosHash: String
     
     /// Singleton instance
-    internal static var shared: RManager? = nil
+    private static var shared: RManager! = nil
+    public static var `default`: RManager {
+        get {
+            if shared == nil {
+                fatalError(initializationFatalErrorMessage)
+            }
+            
+            return shared
+        }
+    }
     
     // MARK: - Methods
     
-    private init?(with iosHash: String, pid: String, sid: String? = nil) {
+    private init(with iosHash: String, pid: String, sid: String? = nil) {
         guard let app = Bundle.main.bundleIdentifier,
             let uid = UIDevice.current.identifierForVendor?.uuidString,
             !pid.isEmpty,
             !iosHash.isEmpty
-            else { return nil }
+            else {
+                fatalError(initializationFieldsFatalErrorMessage)
+        }
         
         self.iosHash = iosHash
         self.app = app
@@ -67,18 +79,9 @@ public class RManager {
         self.language = Locale.current.languageCode
     }
     
-    public static func initiate(with iosHash: String, pid: String, sid: String? = nil) -> RManager? {
+    public static func initiate(with iosHash: String, pid: String, sid: String? = nil) {
         shared = RManager(with: iosHash, pid: pid, sid: sid)
-        RManager.track(et: .open, value: nil)
-        return shared
-    }
-    
-    static private func validate() -> RManager {
-        guard let manager =  RManager.shared else {
-            fatalError(initializationFatalErrorMessage)
-        }
-        
-        return manager
+        shared.track(et: .open, value: nil)
     }
     
     // MARK: TRACK
@@ -87,21 +90,20 @@ public class RManager {
      Function that tracks an event, with specific params.
      Uses conection to an endpoint
     */
-    public static func track(value: String?, callback: callbackWithError? = nil) {
-        RManager.track(et: .custom, value: value, callback: callback)
+    public func track(value: String?, callback: callbackWithError? = nil) {
+        RManager.default.track(et: .custom, value: value, callback: callback)
     }
     
-    internal static func track(et: REventType, value: String?, callback: callbackWithError? = nil) {
+    internal func track(et: REventType, value: String?, callback: callbackWithError? = nil) {
         guard (et == .open && value == nil) || (et != .open && value != nil) else {
             fatalError(openEventWithValueErrorMessage)
         }
         
-        let manager = validate()
         let event = REvent(et: et, value: value)
-        manager.track(with: manager, event: event, callback: callback)
+        RManager.default.track(event: event, callback: callback)
     }
     
-    private func track(with manager: RManager, event: REvent, callback: callbackWithError? = nil) {
+    private func track(event: REvent, callback: callbackWithError? = nil) {
         
         let endpoint = EndpointType.track.rawValue
         
@@ -116,7 +118,7 @@ public class RManager {
         }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.addValue(manager.iosHash, forHTTPHeaderField: EndpointParam.ios_hash.rawValue)
+        request.addValue(self.iosHash, forHTTPHeaderField: EndpointParam.ios_hash.rawValue)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             fatalError(malformedParamsErrorMessage)

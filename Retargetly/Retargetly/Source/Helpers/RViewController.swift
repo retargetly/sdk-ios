@@ -13,6 +13,6 @@ open class RViewController: UIViewController {
 
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        RManager.track(et: .change, value: String(describing: self.classForCoder))
+        RManager.default.track(et: .change, value: String(describing: self.classForCoder))
     }
 }

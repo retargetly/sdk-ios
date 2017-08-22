@@ -46,7 +46,7 @@ struct REvent {
     let value: String?
     
     var parameters: [String: Any]? {
-        guard let manager = RManager.shared else { return nil }
+        let manager = RManager.default
         
         var parameters : [String: Any] =
             [
