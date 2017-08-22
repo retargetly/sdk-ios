@@ -48,7 +48,7 @@ $ pod install
 
 ## Usage
 
-After installing, you my do some changes in the project that has Retargetly, the first thing is initialize the library, like so:
+After installing, you might do some changes in the project that has Retargetly, the first thing is initialize the library, like so:
 
 The recommended place to initialize the library is 'AppDelegate'
 
