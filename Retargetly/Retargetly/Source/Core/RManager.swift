@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: Swizzling implementation for custom clases
+// MARK: - Swizzling implementation for custom clases
 
 private let swizzling: (UIViewController.Type) -> () = { viewController in
     
@@ -22,7 +22,7 @@ private let swizzling: (UIViewController.Type) -> () = { viewController in
     
 }
 
-// MARK: Error Messages
+// MARK: - Error Messages
 
 private let initializationFatalErrorMessage = "Please initialize RManager correctly"
 private let initializationFieldsFatalErrorMessage = "Please initialize RManager correctly, some fields are empty or not allowed"
@@ -42,6 +42,8 @@ fileprivate enum EndpointType: String {
 fileprivate enum EndpointParam: String {
     case ios_hash = "ios_hash"
 }
+
+// MARK: - Manager Implementation
 
 /**
  Events Manager, allows to track events.

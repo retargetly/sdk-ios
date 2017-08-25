@@ -66,18 +66,9 @@ return true
 }
 ```
 
-The library will automatically track the 'open' event every time it initializes. In order track an 'change' event, you need to inherit from the class that tracks that event
+The library will automatically track the 'open' event every time it initializes.
 
-```Swift
-import Retargetly
-...
-
-class MyViewController: RViewController {
-    ...
-}
-```
-
-RViewController automatically tracks the 'change' event with its 'viewDidAppear' method.
+Also, the library is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
 
 Finally, in order to track an 'custom' event, you need to do so:
 
