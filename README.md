@@ -13,9 +13,9 @@ After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 The main focus of the library is to track events, separately in three event-types:
 
 ```
-open    - for Library Initialization
-change  - for front view changed
-custom  - for developer's choice
+open    -  for Library Initialization
+change  -  for front view changed
+custom  -  for developer's choice
 ```
 
 ### Prerequisites
@@ -97,7 +97,7 @@ The 'custom' event, allows you to have an complation callback, and it might have
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://bitbucket.org/nextdotsjolivieri/retargetly-ios/src#tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/retargetly/sdk-ios/releases).
 
 ## Authors
 
