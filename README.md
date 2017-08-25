@@ -13,9 +13,9 @@ After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 The main focus of the library is to track events, separately in three event-types:
 
 ```
-open    - for Library Initialization
-change  - for front view changed
-custom  - for developer's choice
+open    -  for Library Initialization
+change  -  for front view changed
+custom  -  for developer's choice
 ```
 
 ### Prerequisites
