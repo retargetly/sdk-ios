@@ -25,7 +25,7 @@ s.homepage = 'http://nextdots.com/'
 
 
 # 6
-s.source = { :git => 'https://jose_valderrama@bitbucket.org/nextdotsjolivieri/retargetly-ios.git', :tag => s.version }
+s.source = { :git => 'https://github.com/retargetly/sdk-ios.git', :tag => s.version }
 
 
 # 7
