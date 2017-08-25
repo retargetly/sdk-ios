@@ -97,7 +97,7 @@ The 'custom' event, allows you to have an complation callback, and it might have
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://bitbucket.org/nextdotsjolivieri/retargetly-ios/src#tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/retargetly/sdk-ios/releases).
 
 ## Authors
 
