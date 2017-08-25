@@ -8,6 +8,20 @@
 
 import Foundation
 
+// MARK: Swizzling implementation for custom clases
+
+private let swizzling: (UIViewController.Type) -> () = { viewController in
+    
+    let originalSelector = #selector(viewController.viewDidAppear(_:))
+    let swizzledSelector = #selector(viewController.ret_viewDidAppear(animated:))
+    
+    let originalMethod = class_getInstanceMethod(viewController, originalSelector)
+    let swizzledMethod = class_getInstanceMethod(viewController, swizzledSelector)
+    
+    method_exchangeImplementations(originalMethod, swizzledMethod)
+    
+}
+
 // MARK: Error Messages
 
 private let initializationFatalErrorMessage = "Please initialize RManager correctly"
@@ -78,6 +92,8 @@ public class RManager {
         self.sid = sid
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
+        
+        swizzling(UIViewController.self)
     }
     
     public static func initiate(with iosHash: String, pid: String, sid: String? = nil) {

@@ -8,11 +8,12 @@
 
 import UIKit
 
-/// Use this class in inheritance or extension to allow tracking of the screen change event
-open class RViewController: UIViewController {
-
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+extension UIViewController {
+    // MARK: - Method Swizzling
+    
+    @objc func ret_viewDidAppear(animated: Bool) {
+        self.ret_viewDidAppear(animated: animated)
         RManager.default.track(et: .change, value: String(describing: self.classForCoder))
-    }
+    } 
 }
+

@@ -11,7 +11,7 @@
 		AB947FA31F2F7742001A7440 /* Retargetly.h in Headers */ = {isa = PBXBuildFile; fileRef = AB947FA11F2F7742001A7440 /* Retargetly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
 		AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
-		ABDCF3D41F3D76DA005A9BA0 /* RViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDCF3D31F3D76DA005A9BA0 /* RViewController.swift */; };
+		ABDCF3D41F3D76DA005A9BA0 /* ViewController+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDCF3D31F3D76DA005A9BA0 /* ViewController+Retargetly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +21,7 @@
 		AB947FA21F2F7742001A7440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB947FAB1F2F791E001A7440 /* RManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RManager.swift; sourceTree = "<group>"; };
 		AB947FAD1F2F79DD001A7440 /* REvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REvent.swift; sourceTree = "<group>"; };
-		ABDCF3D31F3D76DA005A9BA0 /* RViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RViewController.swift; sourceTree = "<group>"; };
+		ABDCF3D31F3D76DA005A9BA0 /* ViewController+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Retargetly.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,7 @@
 			isa = PBXGroup;
 			children = (
 				AB928AF31F3B727E0032BB46 /* UIDevice+Additionals.swift */,
-				ABDCF3D31F3D76DA005A9BA0 /* RViewController.swift */,
+				ABDCF3D31F3D76DA005A9BA0 /* ViewController+Retargetly.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -170,7 +170,7 @@
 			files = (
 				AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */,
 				AB928AF41F3B727E0032BB46 /* UIDevice+Additionals.swift in Sources */,
-				ABDCF3D41F3D76DA005A9BA0 /* RViewController.swift in Sources */,
+				ABDCF3D41F3D76DA005A9BA0 /* ViewController+Retargetly.swift in Sources */,
 				AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
