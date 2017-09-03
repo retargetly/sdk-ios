@@ -1,5 +1,5 @@
 //
-//  RViewController.swift
+//  UIViewController+Retargetly.swift
 //  Retargetly
 //
 //  Created by José Valderrama on 8/11/17.

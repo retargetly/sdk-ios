@@ -16,19 +16,21 @@ internal enum REventType: String {
     case change = "change"
     /// Custom developer defined events
     case custom = "custom"
+    /// Device start using GPS
+    case gps = "gps"
 }
 
 /// Param name to send in json
 internal enum REventParam: String {
     /// Event type
     case et = "et"
-    /// String value that makes sense depending on 'et' eventy type
+    /// String value that makes sense depending on 'et' event type
     case value = "value"
     /// Current app bundle identifier
     case app = "app"
-    /// device ID
+    /// Device ID
     case uid = "uid"
-    /// partner ID
+    /// Partner ID
     case pid = "pid"
     /// Optional source ID
     case sid = "sid"

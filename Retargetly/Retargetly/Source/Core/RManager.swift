@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import CoreLocation
 
-// MARK: - Swizzling implementation for custom clases
+// MARK: - Swizzling implementation for UIViewController classes
 
-private let swizzling: (UIViewController.Type) -> () = { viewController in
+private let swizzlingUIViewController: (UIViewController.Type) -> () = { viewController in
     
     let originalSelector = #selector(viewController.viewDidAppear(_:))
     let swizzledSelector = #selector(viewController.ret_viewDidAppear(animated:))
@@ -20,6 +21,19 @@ private let swizzling: (UIViewController.Type) -> () = { viewController in
     
     method_exchangeImplementations(originalMethod, swizzledMethod)
     
+}
+
+// MARK: - Swizzling implementation for CLLocationManager classes
+
+private let swizzlingCLLocationManager: (CLLocationManager.Type) -> () = { locationManager in
+
+    let originalSelector = #selector(locationManager.startUpdatingLocation)
+    let swizzledSelector = #selector(locationManager.ret_startUpdatingLocation)
+
+    let originalMethod = class_getInstanceMethod(locationManager, originalSelector)
+    let swizzledMethod = class_getInstanceMethod(locationManager, swizzledSelector)
+
+    method_exchangeImplementations(originalMethod, swizzledMethod)
 }
 
 // MARK: - Error Messages
@@ -95,8 +109,9 @@ public class RManager {
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
         
-        swizzling(UIViewController.self)
-    }
+        swizzlingUIViewController(UIViewController.self)
+        swizzlingCLLocationManager(CLLocationManager.self)
+    } 
     
     public static func initiate(with iosHash: String, pid: String, sid: String? = nil) {
         shared = RManager(with: iosHash, pid: pid, sid: sid)
