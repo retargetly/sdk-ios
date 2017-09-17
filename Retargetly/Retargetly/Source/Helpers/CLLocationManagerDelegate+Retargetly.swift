@@ -36,8 +36,9 @@ extension CLLocationManager {
     @objc func ret_startUpdatingLocation() {
         self.ret_startUpdatingLocation()
         if let coordinate = location?.coordinate, CLLocationManager.isServiceUsable {
-            let formattedCoordinate = "latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)"
-            RManager.default.track(et: .gps, value: formattedCoordinate)
+            let formattedCoordinate = "\(coordinate.latitude);\(coordinate.longitude)"
+            let value = [REventParam.rPosition.rawValue: formattedCoordinate]
+            RManager.default.track(et: .custom, value: value)
         }
     }
 }

@@ -67,8 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				AB947FA91F2F78D0001A7440 /* Source */,
-				AB947FA11F2F7742001A7440 /* Retargetly.h */,
 				AB947FA21F2F7742001A7440 /* Info.plist */,
+				AB947FA11F2F7742001A7440 /* Retargetly.h */,
 			);
 			path = Retargetly;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Retargetly/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Retargetly/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -329,7 +329,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Retargetly/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Retargetly/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

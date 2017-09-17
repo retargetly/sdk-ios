@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias JSON = [String: Any]
+
 /// Type of event to be tracked
 internal enum REventType: String {
     /// User opened app
@@ -16,8 +18,8 @@ internal enum REventType: String {
     case change = "change"
     /// Custom developer defined events
     case custom = "custom"
-    /// Device start using GPS
-    case gps = "gps"
+    /// App become active
+    case active = "active"
 }
 
 /// Param name to send in json
@@ -40,17 +42,21 @@ internal enum REventParam: String {
     case device = "device"
     /// Device current language
     case lan = "lan"
+    /// Device current position
+    case rPosition = "rPosition"
+    /// New UIViewController presented
+    case presented = "presented"
 }
 
-/// Event itself, contains information to be send as json
+/// Event itself, contains information to be send as JSON
 internal struct REvent {
     let et: REventType
-    let value: String?
+    let value: JSON?
     
-    var parameters: [String: Any]? {
+    var parameters: JSON? {
         let manager = RManager.default
         
-        var parameters : [String: Any] =
+        var parameters : JSON =
             [
                 REventParam.et.rawValue : et.rawValue,
                 REventParam.app.rawValue : manager.app,
@@ -72,7 +78,7 @@ internal struct REvent {
         return parameters
     }
     
-    init(et: REventType, value: String?) {
+    init(et: REventType, value: JSON?) {
         self.et = et
         self.value = value
     }

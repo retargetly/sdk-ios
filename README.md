@@ -13,7 +13,8 @@ After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 The main focus of the library is to track events, separately in three event-types:
 
 ```
-open    -  for Library Initialization
+open    -  for library initialization
+active  -  for when apps become active
 change  -  for front view changed
 custom  -  for developer's choice
 ```
@@ -59,7 +60,7 @@ import Retargetly
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> {
 
     ...
-    RManager.initiate(with: an_ios_hash, pid: an_pid, sid: an_sid)
+    RManager.initiate(with: ios_hash, pid: pid, sid: sid, forceGPS: true)
     ...
 
 return true
@@ -68,7 +69,9 @@ return true
 
 The library will automatically track the 'open' event every time it initializes.
 
-Also, the library is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
+The library is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
+
+Also, the library will track the 'active' event every time the app become active (that means when is in foreground), by its 'UIApplicationDidBecomeActive' notification.
 
 Finally, in order to track an 'custom' event, you need to do so:
 
@@ -87,7 +90,7 @@ func anAction() {
 }
 ```
 
-The 'custom' event, allows you to have an complation callback, and it might have an 'error' object if it occurred.
+The 'custom' event, allows you to have an complation callback, and it might have an 'error' object if it occurred. You can send an JSON style object like  [String: Any] on the 'value' param.
 
 ## Built With
 

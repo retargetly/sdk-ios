@@ -41,6 +41,7 @@ private let swizzlingCLLocationManager: (CLLocationManager.Type) -> () = { locat
 private let initializationFatalErrorMessage = "Please initialize RManager correctly"
 private let initializationFieldsFatalErrorMessage = "Please initialize RManager correctly, some fields are empty or not allowed"
 private let openEventWithValueErrorMessage = "Please don't provide a 'value' for <open> event"
+private let eventWithoutValueErrorMessage = "Please provide a 'value' for the event"
 private let noInformationOnEventErrorMessage = "Event without params to send"
 private let malformedParamsErrorMessage = "Some information is malformed on params"
 private let malformedURLErrorMessage = "The URL is malformed, please check it"
@@ -77,6 +78,8 @@ public class RManager {
     let language: String?
     let iosHash: String
     
+    open var locationManager: CLLocationManager? = nil
+    
     private static var shared: RManager! = nil
     
     /// Singleton instance
@@ -111,11 +114,30 @@ public class RManager {
         
         swizzlingUIViewController(UIViewController.self)
         swizzlingCLLocationManager(CLLocationManager.self)
-    } 
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActiveAction(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
+    }
     
-    public static func initiate(with iosHash: String, pid: String, sid: String? = nil) {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    public static func initiate(with iosHash: String, pid: String, sid: String? = nil, forceGPS: Bool = false) {
         shared = RManager(with: iosHash, pid: pid, sid: sid)
         shared.track(et: .open, value: nil)
+        forceGPS ? shared.useLocation() : ()
+    }
+    
+    @objc private func appDidBecomeActiveAction(notification: NSNotification) {
+        RManager.default.track(et: .active, value: nil)
+    }
+    
+    private func useLocation() {
+        locationManager = CLLocationManager()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager?.requestWhenInUseAuthorization()
+        }
     }
     
     // MARK: TRACK
@@ -124,12 +146,12 @@ public class RManager {
      Function that tracks an event, with specific params.
      Uses conection to an endpoint
     */
-    public func track(value: String?, callback: callbackWithError? = nil) {
+    public func track(value: JSON?, callback: callbackWithError? = nil) {
         RManager.default.track(et: .custom, value: value, callback: callback)
     }
     
-    internal func track(et: REventType, value: String?, callback: callbackWithError? = nil) {
-        guard (et == .open && value == nil) || (et != .open && value != nil) else {
+    internal func track(et: REventType, value: JSON?, callback: callbackWithError? = nil) {
+        if et == .open && value != nil {
             fatalError(openEventWithValueErrorMessage)
         }
         
@@ -141,7 +163,7 @@ public class RManager {
         
         let endpoint = EndpointType.track.rawValue
         
-        guard let parameters: [String: Any] = event.parameters else {
+        guard let parameters = event.parameters else {
             fatalError(noInformationOnEventErrorMessage)
         }
         
