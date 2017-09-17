@@ -67,11 +67,11 @@ return true
 }
 ```
 
-The library will automatically track the 'open' event every time it initializes.
+It will automatically track the 'open' event every time it initializes.
 
-The library is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
+Retargetly iOS SDK is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
 
-Also, the library will track the 'active' event every time the app become active (that means when is in foreground), by its 'UIApplicationDidBecomeActive' notification.
+Also, the library will track the 'active' event every time the app becomes active (that means when is in foreground), by its 'UIApplicationDidBecomeActive' notification.
 
 Finally, in order to track an 'custom' event, you need to do so:
 
