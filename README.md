@@ -1,6 +1,6 @@
 ![Retargetly](http://beta.retargetly.com/wp-content/uploads/2015/07/Logo.png)
 
-# Retargetly
+# Retargetly iOS SDK
 
 Retargetly is a tracking library for iOS.
 
@@ -68,6 +68,8 @@ return true
 ```
 
 It will automatically track the 'open' event every time it initializes.
+
+**Note:** In order to use 'forceGPS' with true value,  A key-value <NSLocationWhenInUseUsageDescription> must be included in the 'info.plist' file.
 
 Retargetly iOS SDK is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
 
