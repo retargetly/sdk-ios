@@ -84,7 +84,8 @@ import Retargetly
 func anAction() {
 
     ...
-    RManager.default.track(value: aValue) {(error) in
+    let aJSONstyleValue = ["aCustomValueField": "someValue", "aCustomValueField2": 200]
+    RManager.default.track(value: aJSONstyleValue) {(error) in
         print(error)
     }
     ...
