@@ -2,7 +2,7 @@
 
 # Retargetly iOS SDK
 
-Retargetly is a tracking library for iOS.
+*Retargetly iOS SDK* is a tracking library for iOS.
 
 ## Getting Started
 
@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 
-The main focus of the library is to track events, separately in three event-types:
+The main focus of the library is to track events, separately in four event-types:
 
 ```
 open    -  for library initialization
@@ -28,13 +28,13 @@ Xcode - Swift 3
 
 ### Installing
 
-In order to use the library, it must be included in the project via cocoapods, then install pods. You can install cocoapods by this way:
+In order to use the library, it must be included in the project via *cocoapods*, then install pods. You can install *cocoapods* by this way:
 
 ```
 $ gem install cocoapods
 ```
 
-Then, specify 'Retargerlty' pod in podfile:
+Then, specify 'Retargerlty' pod in *podfile*:
 
 ```
 pod 'Retargetly'
@@ -49,9 +49,9 @@ $ pod install
 
 ## Usage
 
-After installing, you might do some changes in the project that has Retargetly, the first thing is initialize the library, like so:
+After installing, you might do some changes in the project that has *Retargetly iOS SDK*, the first thing is initialize the library, like so:
 
-The recommended place to initialize the library is 'AppDelegate'
+The recommended place to initialize the library is 'AppDelegate' file:
 
 ```Swift
 import Retargetly
@@ -71,7 +71,7 @@ It will automatically track the 'open' event every time it initializes.
 
 **Note:** In order to use 'forceGPS' with true value,  A key-value *NSLocationWhenInUseUsageDescription* must be included in the 'info.plist' file.
 
-Retargetly iOS SDK is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
+*Retargetly iOS SDK* is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
 
 Also, the library will track the 'active' event every time the app becomes active (that means when is in foreground), by its 'UIApplicationDidBecomeActive' notification.
 
@@ -108,5 +108,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * [**José Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
-
-
