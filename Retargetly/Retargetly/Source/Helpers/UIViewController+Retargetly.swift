@@ -14,7 +14,7 @@ extension UIViewController {
     @objc func ret_viewDidAppear(animated: Bool) {
         self.ret_viewDidAppear(animated: animated)
         let viewControllerName = String(describing: self.classForCoder)
-        let value = [REventParam.presented.rawValue : viewControllerName]
+        let value = [REventParam.named.rawValue : viewControllerName]
         RManager.default.track(et: .change, value: value)
-    } 
+    }
 }

@@ -167,8 +167,6 @@ public class RManager {
             fatalError(noInformationOnEventErrorMessage)
         }
         
-        print(event.et, parameters, "\n")
-        
         guard let url = URL(string: endpoint) else {
             fatalError(malformedURLErrorMessage)
         }

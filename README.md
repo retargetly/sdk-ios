@@ -63,13 +63,27 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     RManager.initiate(with: ios_hash, pid: pid, sid: sid, forceGPS: true)
     ...
 
-return true
+    return true
 }
 ```
 
 It will automatically track the 'open' event every time it initializes.
 
-**Note:** In order to use 'forceGPS' with true value,  A key-value *NSLocationWhenInUseUsageDescription* must be included in the 'info.plist' file.
+**Note:** In order to use 'forceGPS' with true value,  A key-value *NSLocationWhenInUseUsageDescription* must be included in the 'info.plist' file. You can also use an instance of *CLLocationManager*, named 'locationManager' in order to use the same object that controls location services within the library, like so:
+
+```Swift
+import Retargetly
+...
+
+class MyViewController: UIViewController, CLLocationManagerDelegate {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        RManager.default.locationManager?.delegate = self
+    }
+    
+    ...
+```
 
 *Retargetly iOS SDK* is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
 
@@ -84,8 +98,8 @@ import Retargetly
 func anAction() {
 
     ...
-    let aJSONstyleValue = ["aCustomValueField": "someValue", "aCustomValueField2": 200]
-    RManager.default.track(value: aJSONstyleValue) {(error) in
+    let aJSONStyleValue = ["aCustomValueField": "someValue", "aCustomValueField2": 200]
+    RManager.default.track(value: aJSONStyleValue) {(error) in
         print(error)
     }
     ...

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Type JSON
 public typealias JSON = [String: Any]
 
 /// Type of event to be tracked
@@ -44,8 +45,8 @@ internal enum REventParam: String {
     case lan = "lan"
     /// Device current position
     case rPosition = "rPosition"
-    /// New UIViewController presented
-    case presented = "presented"
+    /// Name of new UIViewController presented
+    case named = "named"
 }
 
 /// Event itself, contains information to be send as JSON
