@@ -83,6 +83,7 @@ class MyViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     ...
+}
 ```
 
 *Retargetly iOS SDK* is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
