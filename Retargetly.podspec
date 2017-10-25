@@ -29,6 +29,6 @@ s.source = { :git => 'https://github.com/retargetly/sdk-ios.git', :tag => s.vers
 
 
 # 7
-s.source_files = 'Retargetly/**/*.{swift}'
+s.source_files = '**'
 
 end
