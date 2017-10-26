@@ -31,12 +31,8 @@ internal enum REventParam: String {
     case value = "value"
     /// Current app bundle identifier
     case app = "app"
-    /// Device ID
-    case uid = "uid"
-    /// Partner ID
-    case pid = "pid"
-    /// Optional source ID
-    case sid = "sid"
+    /// sourceHash
+    case sourceHash = "source_hash"
     /// Manufacturer
     case mf = "mf"
     /// Device model
@@ -61,8 +57,7 @@ internal struct REvent {
             [
                 REventParam.et.rawValue : et.rawValue,
                 REventParam.app.rawValue : manager.app,
-                REventParam.uid.rawValue : manager.uid,
-                REventParam.pid.rawValue : manager.pid,
+                REventParam.sourceHash.rawValue : manager.sourceHash,
                 REventParam.mf.rawValue : manager.mf,
                 REventParam.device.rawValue : manager.device,
                 REventParam.lan.rawValue : manager.language ?? ""
@@ -70,10 +65,6 @@ internal struct REvent {
         
         if let value = self.value {
             parameters.updateValue(value, forKey: REventParam.value.rawValue)
-        }
-        
-        if let sid = manager.sid {
-            parameters.updateValue(sid, forKey: REventParam.sid.rawValue)
         }
         
         return parameters

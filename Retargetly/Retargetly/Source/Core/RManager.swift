@@ -55,7 +55,7 @@ fileprivate enum EndpointType: String {
 }
 
 fileprivate enum EndpointParam: String {
-    case ios_hash = "ios_hash"
+    case source_hash = "ios_hash"
 }
 
 // MARK: - Manager Implementation
@@ -70,13 +70,10 @@ public class RManager {
     // MARK: - Instance Members
     
     let app: String
-    let uid: String
-    let pid: String
-    let sid: String?
+    let sourceHash: String
     final let mf: String = "Apple Inc."
     let device: String
     let language: String?
-    let iosHash: String
     
     open var locationManager: CLLocationManager? = nil
     
@@ -95,20 +92,14 @@ public class RManager {
     
     // MARK: - Methods
     
-    private init(with iosHash: String, pid: String, sid: String? = nil) {
+    private init(with sourceHash: String) {
         guard let app = Bundle.main.bundleIdentifier,
-            let uid = UIDevice.current.identifierForVendor?.uuidString,
-            !pid.isEmpty,
-            !iosHash.isEmpty
+            !sourceHash.isEmpty
             else {
                 fatalError(initializationFieldsFatalErrorMessage)
         }
-        
-        self.iosHash = iosHash
         self.app = app
-        self.uid = uid
-        self.pid = pid
-        self.sid = sid
+        self.sourceHash = sourceHash
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
         
@@ -122,8 +113,8 @@ public class RManager {
         NotificationCenter.default.removeObserver(self)
     }
     
-    public static func initiate(with iosHash: String, pid: String, sid: String? = nil, forceGPS: Bool = false) {
-        shared = RManager(with: iosHash, pid: pid, sid: sid)
+    public static func initiate(with sourceHash: String, forceGPS: Bool = false) {
+        shared = RManager(with: sourceHash)
         shared.track(et: .open, value: nil)
         forceGPS ? shared.useLocation() : ()
     }
@@ -173,7 +164,6 @@ public class RManager {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.addValue(self.iosHash, forHTTPHeaderField: EndpointParam.ios_hash.rawValue)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
