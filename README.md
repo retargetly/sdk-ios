@@ -40,6 +40,13 @@ Then, specify 'Retargerlty' pod in *podfile*:
 pod 'Retargetly'
 ```
 
+Add the following sources in *podfile*:
+
+```
+ source 'https://github.com/CocoaPods/Specs.git'
+ source 'https://github.com/retargetly/RetargetlyPodSpecs.git'
+```
+
 And finally, install the pods into project:
 
 ```
@@ -60,7 +67,7 @@ import Retargetly
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> {
 
     ...
-    RManager.initiate(with: ios_hash, pid: pid, sid: sid, forceGPS: true)
+    RManager.initiate(with: sourceHash, forceGPS: true)
     ...
 
     return true
