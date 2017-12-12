@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreLocation
-
+import AdSupport
 // MARK: - Swizzling implementation for UIViewController classes
 
 private let swizzlingUIViewController: (UIViewController.Type) -> () = { viewController in
@@ -74,6 +74,7 @@ public class RManager {
     final let mf: String = "Apple Inc."
     let device: String
     let language: String?
+    var uid : String?
     
     open var locationManager: CLLocationManager? = nil
     
@@ -102,11 +103,23 @@ public class RManager {
         self.sourceHash = sourceHash
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
+        self.uid = self.identifierForAdvertising()
         
         swizzlingUIViewController(UIViewController.self)
         swizzlingCLLocationManager(CLLocationManager.self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActiveAction(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    
+    private func identifierForAdvertising() -> String? {
+        // Check whether advertising tracking is enabled
+        guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
+            return ""
+        }
+        
+        // Get and return IDFA
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
     
     deinit {
@@ -115,7 +128,7 @@ public class RManager {
     
     public static func initiate(with sourceHash: String, forceGPS: Bool = false) {
         shared = RManager(with: sourceHash)
-        shared.track(et: .open, value: nil)
+        shared.track(et: .active, value: nil)
         forceGPS ? shared.useLocation() : ()
     }
     

@@ -43,6 +43,8 @@ internal enum REventParam: String {
     case rPosition = "rPosition"
     /// Name of new UIViewController presented
     case named = "named"
+    /// Uid of Google
+    case uid = "uid"
 }
 
 /// Event itself, contains information to be send as JSON
@@ -60,7 +62,8 @@ internal struct REvent {
                 REventParam.sourceHash.rawValue : manager.sourceHash,
                 REventParam.mf.rawValue : manager.mf,
                 REventParam.device.rawValue : manager.device,
-                REventParam.lan.rawValue : manager.language ?? ""
+                REventParam.lan.rawValue : manager.language ?? "",
+                REventParam.uid.rawValue : manager.uid
         ]
         
         if let value = self.value {
