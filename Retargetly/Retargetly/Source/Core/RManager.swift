@@ -9,19 +9,6 @@
 import Foundation
 import CoreLocation
 import AdSupport
-// MARK: - Swizzling implementation for UIViewController classes
-
-private let swizzlingUIViewController: (UIViewController.Type) -> () = { viewController in
-    
-    let originalSelector = #selector(viewController.viewDidAppear(_:))
-    let swizzledSelector = #selector(viewController.ret_viewDidAppear(animated:))
-    
-    let originalMethod = class_getInstanceMethod(viewController, originalSelector)
-    let swizzledMethod = class_getInstanceMethod(viewController, swizzledSelector)
-    
-    method_exchangeImplementations(originalMethod, swizzledMethod)
-    
-}
 
 // MARK: - Swizzling implementation for CLLocationManager classes
 
@@ -51,11 +38,12 @@ private let malformedURLErrorMessage = "The URL is malformed, please check it"
 public typealias callbackWithError = (_ error: Error?) -> Void
 
 fileprivate enum EndpointType: String {
+    case initiate = "https://api.retargetly.com/sdk"
     case track = "https://api.retargetly.com/ios"
 }
 
 fileprivate enum EndpointParam: String {
-    case source_hash = "ios_hash"
+    case sourceHash = "source_hash"
 }
 
 // MARK: - Manager Implementation
@@ -105,10 +93,7 @@ public class RManager {
         self.language = Locale.current.languageCode
         self.uid = self.identifierForAdvertising()
         
-        swizzlingUIViewController(UIViewController.self)
         swizzlingCLLocationManager(CLLocationManager.self)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActiveAction(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
     }
     
     
@@ -122,18 +107,10 @@ public class RManager {
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     public static func initiate(with sourceHash: String, forceGPS: Bool = false) {
         shared = RManager(with: sourceHash)
-        shared.track(et: .active, value: nil)
+        shared.track(et: .open, value: nil)
         forceGPS ? shared.useLocation() : ()
-    }
-    
-    @objc private func appDidBecomeActiveAction(notification: NSNotification) {
-        RManager.default.track(et: .active, value: nil)
     }
     
     private func useLocation() {
@@ -144,7 +121,7 @@ public class RManager {
         }
     }
     
-    // MARK: TRACK
+    // MARK: - Track functionality
     
     /**
      Function that tracks an event, with specific params.
@@ -163,6 +140,23 @@ public class RManager {
         RManager.default.track(event: event, callback: callback)
     }
     
+    // TODO: implement this propertly
+    private func initiateSDKWithServer() {
+        let endpoint = EndpointType.initiate.rawValue
+        guard let url = URL(string: endpoint + "/params?source_hash=\(RManager.default.sourceHash)") else {
+            fatalError(malformedURLErrorMessage)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue(self.sourceHash, forHTTPHeaderField: EndpointParam.sourceHash.rawValue)
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+
+            }.resume()
+    }
+    
     private func track(event: REvent, callback: callbackWithError? = nil) {
         
         let endpoint = EndpointType.track.rawValue
@@ -171,7 +165,7 @@ public class RManager {
             fatalError(noInformationOnEventErrorMessage)
         }
         
-        guard let url = URL(string: endpoint) else {
+        guard let url = URL(string: endpoint + "?source_hash=\(RManager.default.sourceHash)") else {
             fatalError(malformedURLErrorMessage)
         }
         

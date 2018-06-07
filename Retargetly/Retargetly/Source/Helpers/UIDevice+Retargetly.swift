@@ -1,5 +1,5 @@
 //
-//  UIDevice+Additionals.swift
+//  UIDevice+Retargetly.swift
 //  Retargetly
 //
 //  Created by José Valderrama on 8/9/17.
@@ -10,7 +10,7 @@ import UIKit
 
 /// Allows to know what type of devise is running the app
 internal extension UIDevice {
-    
+    // TODO: allow iphone 8 and iPhone X
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
