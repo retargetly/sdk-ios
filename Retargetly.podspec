@@ -9,7 +9,7 @@ s.requires_arc = true
 
 
 # 2
-s.version = '0.1.22'
+s.version = '1.1.0'
 
 
 # 3
@@ -30,6 +30,6 @@ s.source = { :git => 'https://github.com/retargetly/sdk-ios.git', :tag => s.vers
 
 # 7
 #s.source_files = '**'
-s.source_files = 'Retargetly/**/*.{swift}'
+s.source_files = 'Retargetly/Retargetly/**/*.{swift}'
 
 end

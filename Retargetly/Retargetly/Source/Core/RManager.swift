@@ -9,33 +9,26 @@
 import Foundation
 import CoreLocation
 import AdSupport
+import UIKit
 
 // MARK: - Swizzling implementation for CLLocationManager classes
 
 private let swizzlingCLLocationManager: (CLLocationManager.Type) -> () = { locationManager in
 
+    // startUpdatingLocation
     let originalSelector = #selector(locationManager.startUpdatingLocation)
     let swizzledSelector = #selector(locationManager.ret_startUpdatingLocation)
 
     let originalMethod = class_getInstanceMethod(locationManager, originalSelector)
     let swizzledMethod = class_getInstanceMethod(locationManager, swizzledSelector)
 
-    method_exchangeImplementations(originalMethod, swizzledMethod)
+    method_exchangeImplementations(originalMethod!, swizzledMethod!)
 }
-
-// MARK: - Error Messages
-
-private let initializationFatalErrorMessage = "Please initialize RManager correctly"
-private let initializationFieldsFatalErrorMessage = "Please initialize RManager correctly, some fields are empty or not allowed"
-private let openEventWithValueErrorMessage = "Please don't provide a 'value' for <open> event"
-private let eventWithoutValueErrorMessage = "Please provide a 'value' for the event"
-private let noInformationOnEventErrorMessage = "Event without params to send"
-private let malformedParamsErrorMessage = "Some information is malformed on params"
-private let malformedURLErrorMessage = "The URL is malformed, please check it"
 
 // MARK: - Internal Helpers
 
-public typealias callbackWithError = (_ error: Error?) -> Void
+public typealias CallbackWithError = (_ error: Error?) -> Void
+public typealias ApiCallbackWithError = (_ json: JSON?, _ error: Error?) -> Void
 
 fileprivate enum EndpointType: String {
     case initiate = "https://api.retargetly.com/sdk"
@@ -46,6 +39,11 @@ fileprivate enum EndpointParam: String {
     case sourceHash = "source_hash"
 }
 
+@objc public protocol RManagerDelegate: class {
+    /// In order to provide UI assistance
+    @objc optional func rManager(_ manager: RManager, didSendActionWith message: String)
+}
+
 // MARK: - Manager Implementation
 
 /**
@@ -53,18 +51,49 @@ fileprivate enum EndpointParam: String {
  
  Manages an singleton property named 'default' for its use
 */
-public class RManager {
+public class RManager: NSObject {
     
     // MARK: - Instance Members
     
     let app: String
+    let appn: String
     let sourceHash: String
+    let forceGPS: Bool
+    let sendGeoData: Bool
     final let mf: String = "Apple Inc."
     let device: String
     let language: String?
-    var uid : String?
+    var uid: String?
+    static var deeplink: URL? = nil {
+        didSet {
+            processDeeplink()
+        }
+    }
+    var relatedID : String? {
+        guard let deeplinkMessage = RManager.deeplink?.host?.removingPercentEncoding,
+            let userIdRange = deeplinkMessage.range(of: "user_id=") else {
+            return nil
+        }
+        
+        let relatedID = String(deeplinkMessage[userIdRange.upperBound...])
+        return relatedID
+    }
     
-    open var locationManager: CLLocationManager? = nil
+    public private(set) var rLocationManager: RLocationManager? = nil
+    public var delegate: RManagerDelegate? = nil {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                if let delegate = strongSelf.delegate {
+                    let trackerValues = strongSelf.rLocationManager?.description ?? ""
+                    delegate.rManager?(strongSelf, didSendActionWith: "GPS tracker values: \(trackerValues)")
+                }
+            }
+        }
+    }
     
     private static var shared: RManager! = nil
     
@@ -72,7 +101,7 @@ public class RManager {
     public static var `default`: RManager {
         get {
             if shared == nil {
-                fatalError(initializationFatalErrorMessage)
+                fatalError(RError.initializationFatal.errorDescription!)
             }
             
             return shared
@@ -81,70 +110,91 @@ public class RManager {
     
     // MARK: - Methods
     
-    private init(with sourceHash: String) {
-        guard let app = Bundle.main.bundleIdentifier,
+    private init(with sourceHash: String, sendGeoData: Bool, forceGPS: Bool) {
+        guard let app = Bundle.main.bundleIdentifier, let appn = Bundle.main.displayName,
             !sourceHash.isEmpty
             else {
-                fatalError(initializationFieldsFatalErrorMessage)
+                fatalError(RError.initializationFieldsFatal.errorDescription!)
         }
+        
         self.app = app
+        self.appn = appn
         self.sourceHash = sourceHash
+        self.forceGPS = forceGPS
+        self.sendGeoData = sendGeoData
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
+        super.init()
         self.uid = self.identifierForAdvertising()
-        
         swizzlingCLLocationManager(CLLocationManager.self)
     }
-    
     
     private func identifierForAdvertising() -> String? {
         // Check whether advertising tracking is enabled
         guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
-            return ""
+            return nil
         }
         
         // Get and return IDFA
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
     
-    public static func initiate(with sourceHash: String, forceGPS: Bool = false) {
-        shared = RManager(with: sourceHash)
-        shared.track(et: .open, value: nil)
-        forceGPS ? shared.useLocation() : ()
-    }
-    
-    private func useLocation() {
-        locationManager = CLLocationManager()
+    public static func initiate(with sourceHash: String, sendGeoData: Bool = true, forceGPS: Bool = true, callback: CallbackWithError? = nil) {
+        // Turn off previous implementation
+        if shared != nil {
+            shared.rLocationManager?.stopTracking()
+        }
         
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager?.requestWhenInUseAuthorization()
+        shared = RManager(with: sourceHash, sendGeoData: sendGeoData, forceGPS: forceGPS)
+        shared.initiateSDKWithServer { (json, error) in
+            guard error == nil else {
+                shared = nil
+                callback?(error)
+                return
+            }
+            
+            shared.rLocationManager = RLocationManager(from: json)
+            shared.rLocationManager?.useLocationServiceIfNeeded()
+            RManager.processDeeplink()
+            shared.track(et: .open, value: nil, callback: { (error) in
+              callback?(error)                
+            })
         }
     }
     
     // MARK: - Track functionality
     
+    static private func processDeeplink() {
+        guard let manager = RManager.shared, let deeplink = deeplink else {
+            return
+        }
+        
+        manager.delegate?.rManager?(manager, didSendActionWith: "DEEPLINK EVENT - \(deeplink)")
+        manager.track(et: .deeplink, value: nil)
+    }
+    
     /**
      Function that tracks an event, with specific params.
      Uses conection to an endpoint
     */
-    public func track(value: JSON?, callback: callbackWithError? = nil) {
+    public func track(value: JSON?, callback: CallbackWithError? = nil) {
         RManager.default.track(et: .custom, value: value, callback: callback)
     }
     
-    internal func track(et: REventType, value: JSON?, callback: callbackWithError? = nil) {
+    internal func track(et: REventType, value: JSON?, callback: CallbackWithError? = nil) {
         if et == .open && value != nil {
-            fatalError(openEventWithValueErrorMessage)
+            fatalError(RError.openEventWithValue.errorDescription!)
         }
         
         let event = REvent(et: et, value: value)
         RManager.default.track(event: event, callback: callback)
     }
     
-    // TODO: implement this propertly
-    private func initiateSDKWithServer() {
+    private func initiateSDKWithServer(_ callback: @escaping ApiCallbackWithError) {
         let endpoint = EndpointType.initiate.rawValue
-        guard let url = URL(string: endpoint + "/params?source_hash=\(RManager.default.sourceHash)") else {
-            fatalError(malformedURLErrorMessage)
+        guard let url = URL(string: endpoint + "/params?source_hash=\(self.sourceHash)") else {
+            callback(nil, NSError.errorFromRetargetlyError(.malformedURL))
+            return
         }
         
         var request = URLRequest(url: url)
@@ -153,35 +203,65 @@ public class RManager {
         
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
-
-            }.resume()
+            guard error == nil else {
+                callback(nil, error)
+                return
+            }
+            
+            guard let data = data else {
+                callback(nil, NSError.errorFromRetargetlyError(.responseDataNotFound))
+                return
+            }
+            
+            guard !data.isEmpty else {
+                fatalError(RError.possibleInvalidSourceHash.errorDescription!)
+            }
+            
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSON else {
+                    callback(nil, NSError.errorFromRetargetlyError(.responseDataNotSerilizable))
+                    return
+                }
+                
+                callback(json, nil)
+            } catch {
+                callback(nil, error)
+            }
+            }
+            .resume()
     }
     
-    private func track(event: REvent, callback: callbackWithError? = nil) {
+    private func track(event: REvent, callback: CallbackWithError? = nil) {
         
         let endpoint = EndpointType.track.rawValue
         
-        guard let parameters = event.parameters else {
-            fatalError(noInformationOnEventErrorMessage)
+        event.getParams { (params) in
+            guard let parameters = params else {
+                callback?(NSError.errorFromRetargetlyError(.noInformationOnEvent))
+                return
+            }
+            
+            guard let url = URL(string: endpoint + "?source_hash=\(RManager.default.sourceHash)") else {
+                callback?(NSError.errorFromRetargetlyError(.malformedURL))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+                fatalError(RError.malformedParams.errorDescription!)
+            }
+            
+            print("\ntrack params:", String(data: httpBody, encoding: .utf8) ?? "", "\n")
+            request.httpBody = httpBody
+            
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                callback?(error)
+                }
+                .resume()
         }
-        
-        guard let url = URL(string: endpoint + "?source_hash=\(RManager.default.sourceHash)") else {
-            fatalError(malformedURLErrorMessage)
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            fatalError(malformedParamsErrorMessage)
-        }
-        
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            callback?(error)
-            }.resume()
     }
 }

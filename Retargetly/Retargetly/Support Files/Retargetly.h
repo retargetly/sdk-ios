@@ -16,4 +16,4 @@ FOUNDATION_EXPORT const unsigned char RetargetlyVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Retargetly/PublicHeader.h>
 
-
+#include <ifaddrs.h>

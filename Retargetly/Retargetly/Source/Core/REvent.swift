@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// Type JSON
-public typealias JSON = [String: Any]
+public typealias JSON = [AnyHashable: Any]
 
 /// Type of event to be tracked
 internal enum REventType: String {
@@ -17,7 +18,7 @@ internal enum REventType: String {
     case open = "open"
     /// Custom developer defined events
     case custom = "custom"
-    /// Geo-position
+    /// Device geo-position
     case geo = "geo"
     /// When the app was open from a external link (banner ad)
     case deeplink = "deeplink"
@@ -32,6 +33,8 @@ internal enum REventParam: String {
     case uid = "uid"
     /// Current app bundle identifier
     case app = "app"
+    /// Current app display name
+    case appn = "appn"
     /// Source Hash
     case sourceHash = "source_hash"
     /// String value that makes sense depending on 'et' event type. Mostly `custom` REventType
@@ -44,49 +47,94 @@ internal enum REventParam: String {
     case device = "device"
     /// IP Address
     case ip = "ip"
-    /// SSID WiFi Address
-    case nwifi = "nwifi"
     
     // MARK: - GEO Event Params
-    /// Device current position
-    case rPosition = "rPosition"
+    /// Device location latitude
+    case lat = "lat"
+    /// Device location longitude
+    case lng = "lng"
+    /// Device location altitude
+    case alt = "alt"
+    /// Device location horizontal accuracy
+    case accuracy = "accuracy"
+    /// Device location vertical accuracy
+    case altAccuracy = "altaccuracy"
+    /// SSID WiFi Address
+    case nwifi = "nwifi"
     
     // MARK: - DEEPLINK Event Params
     /// External URL received
     case link = "link"
+    /// RelatedID from external URL received
+    case relatedID = "related_id"
 }
 
 /// Event itself, contains information to be send as JSON
-internal struct REvent {
+internal class REvent {
     let et: REventType
     let value: JSON?
-    
-    var parameters: JSON? {
-        let manager = RManager.default
-        
-        var parameters : JSON =
-            [
-                REventParam.et.rawValue : et.rawValue,
-                REventParam.uid.rawValue : manager.uid ?? "",
-                REventParam.app.rawValue : manager.app,
-                REventParam.sourceHash.rawValue : manager.sourceHash,
-                REventParam.lan.rawValue : manager.language ?? "",
-                REventParam.mf.rawValue : manager.mf,
-                REventParam.device.rawValue : manager.device,
-                // TODO: implement this propertly
-                REventParam.ip.rawValue : "127.0.0.1",
-                REventParam.nwifi.rawValue : "A nice wifi",
-        ]
-        
-        if let value = self.value {
-            parameters.updateValue(value, forKey: REventParam.value.rawValue)
-        }
-        
-        return parameters
-    }
     
     init(et: REventType, value: JSON?) {
         self.et = et
         self.value = value
+    }
+    
+    func getParams(_ callback: @escaping (_ params: JSON?) -> Void) {
+        NetworkUtils.getPublicIP { (publicIP)  in
+            let manager = RManager.default
+            
+            var parameters : JSON =
+                [
+                    REventParam.et.rawValue : self.et.rawValue,
+                    REventParam.uid.rawValue : manager.uid ?? "",
+                    REventParam.app.rawValue : manager.app,
+                    REventParam.appn.rawValue : manager.appn,
+                    REventParam.sourceHash.rawValue : manager.sourceHash,
+                    REventParam.lan.rawValue : manager.language ?? "",
+                    REventParam.mf.rawValue : manager.mf,
+                    REventParam.device.rawValue : manager.device,
+                    REventParam.ip.rawValue : publicIP ?? ""
+                    ]
+            
+            if let value = self.value {
+                parameters.updateValue(value, forKey: REventParam.value.rawValue)
+            }
+            
+            self.addEventParams(with: &parameters, manager: manager)
+            callback(parameters)
+        }
+    }
+    
+    private func addEventParams(with parameters: inout JSON, manager: RManager) {
+        switch et {
+        case .open, .custom:
+            guard let relatedID = manager.relatedID else {
+                return
+            }
+            
+            RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "OPEN EVENT - relatedID \(relatedID)")
+            parameters.updateValue(relatedID, forKey: REventParam.relatedID.rawValue)
+        case .geo:
+            guard let locationManager = manager.rLocationManager?.locationManager,
+                let location = locationManager.location else {
+                    return
+            }
+            
+            let value: JSON = [REventParam.lat.rawValue: location.coordinate.latitude,
+                               REventParam.lng.rawValue: location.coordinate.longitude,
+                               REventParam.alt.rawValue: location.altitude,
+                               REventParam.accuracy.rawValue: location.horizontalAccuracy,
+                               REventParam.altAccuracy.rawValue: location.verticalAccuracy,
+                               REventParam.nwifi.rawValue: NetworkUtils.getWiFiSSID() ?? ""]
+            parameters.updateValue(value, forKey: REventParam.value.rawValue)
+        case .deeplink:
+            guard let deeplink = RManager.deeplink else {
+                return
+            }
+            
+            let value: JSON = [REventParam.link.rawValue: deeplink.absoluteString]
+            parameters.updateValue(value, forKey: REventParam.value.rawValue)
+            break
+        }
     }
 }
