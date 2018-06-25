@@ -146,18 +146,12 @@ public class RManager: NSObject {
         }
         
         shared = RManager(with: sourceHash, sendGeoData: sendGeoData, forceGPS: forceGPS)
-        shared.initiateSDKWithServer { (json, error) in
-            guard error == nil else {
-                shared = nil
-                callback?(error)
-                return
-            }
-            
+        shared.initiateSDKWithServer { (json, initWithServerError) in
             shared.rLocationManager = RLocationManager(from: json)
             shared.rLocationManager?.useLocationServiceIfNeeded()
             RManager.processDeeplink()
             shared.track(et: .open, value: nil, callback: { (error) in
-              callback?(error)                
+              callback?(error ?? initWithServerError)
             })
         }
     }
