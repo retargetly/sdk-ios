@@ -62,6 +62,8 @@ public class RLocationManager: NSObject {
             if oldValue != motionState {
                 startStateTrackTimer()
             }
+            
+            RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "motionState \(motionState)")
         }
     }
     
@@ -121,13 +123,14 @@ public class RLocationManager: NSObject {
         self.motionDetectionFrequency = motionDetectionFrequency
         self.motionThreshold = motionThreshold
         
-//        self.motionFrequency = 1
-//        self.staticFrequency = 1
-//        self.motionDetectionFrequency = 5
+//        self.motionFrequency = 4
+//        self.staticFrequency = 4
+//        self.motionDetectionFrequency = 2
 //        self.motionThreshold = 2
         
         super.init()
         self.configureCLLocationManager()
+        self.askLocationServiceIfNeeded()
     }
     
     /// Configures the CLLocationManager inside RLocationManager
@@ -158,16 +161,22 @@ public class RLocationManager: NSObject {
         }
     }
     
-    /// Use location services only if needed
-    func useLocationServiceIfNeeded() {
-        let manager = RManager.default
-        
-        // If forceGPS is required and location services are enabled
-        if manager.forceGPS {
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager.requestAlwaysAuthorization()
-            } else {
-                delegate?.rLocationManager?(locationManager, couldNotInitBecause: NSError.errorFromRetargetlyError(.locationServiceNotAllowedOrDenied))
+    /// Ask for location services authorization only if needed
+    private func askLocationServiceIfNeeded() {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let manager = RManager.default
+            
+            // If forceGPS is required and location services are enabled
+            if manager.forceGPS {
+                if CLLocationManager.locationServicesEnabled() {
+                    strongSelf.locationManager.requestAlwaysAuthorization()
+                } else {
+                    strongSelf.delegate?.rLocationManager?(strongSelf.locationManager, couldNotInitBecause: NSError.errorFromRetargetlyError(.locationServiceNotAllowedOrDenied))
+                }
             }
         }
     }
@@ -175,6 +184,8 @@ public class RLocationManager: NSObject {
     // MARK: - Track
     
     func startGPSTrackTimer(_ callback: TimerCallback? = nil) {
+        askLocationServiceIfNeeded()
+        
         // Operates only if track timer is nil
         guard self.gpsTrackTimer == nil, RManager.default.sendGeoData else {
             return
@@ -187,6 +198,7 @@ public class RLocationManager: NSObject {
                     return
                 }
                 
+                strongSelf.sendTrackedLocation()
                 strongSelf.gpsTrackTimer = Timer.scheduledTimer(timeInterval: strongSelf.motionDetectionFrequency, target: strongSelf.locationManager, selector: #selector(strongSelf.locationManager.startUpdatingLocation), userInfo: nil, repeats: true)
                 strongSelf.locationManager.startUpdatingLocation()
                 
@@ -261,6 +273,7 @@ public class RLocationManager: NSObject {
         }
         
         let distance = lastLocation.distance(from: newLocation)
+        RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "Covered meters: \(distance)")
         
         if distance >= self.motionThreshold {
             self.lastLocation = newLocation
@@ -268,8 +281,6 @@ public class RLocationManager: NSObject {
         } else {
             self.motionState = .noEnoughtMotion
         }
-        
-        RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "Covered meters: \(distance)")
     }
     
     @objc private func sendTrackedLocation() {
