@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Custom class that allows to receive externals deeplink with the SDK
 open class RAppDelegate: UIResponder, UIApplicationDelegate {
     
     open var window: UIWindow?

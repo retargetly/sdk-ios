@@ -112,7 +112,7 @@ internal class REvent {
                 return
             }
             
-            RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "OPEN EVENT - relatedID \(relatedID)")
+            RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "\(et.rawValue.uppercased()) EVENT - relatedID \(relatedID)")
             parameters.updateValue(relatedID, forKey: REventParam.relatedID.rawValue)
         case .geo:
             guard let locationManager = manager.rLocationManager?.locationManager,

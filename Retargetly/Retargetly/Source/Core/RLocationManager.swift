@@ -17,6 +17,9 @@ import CoreLocation
     @objc optional func rLocationManager(_ manager: CLLocationManager, couldNotInitBecause error: NSError?)
 }
 
+/**
+ Retargetly Location Service manager, allows to track GPS values.
+ */
 public class RLocationManager: NSObject {
     
     typealias TimerCallback = () -> Void
@@ -35,6 +38,7 @@ public class RLocationManager: NSObject {
         case motionThreshold = "motionThreshold"
     }
     
+    /// Motion states
     fileprivate enum RMotionState {
         case inMotion
         case noEnoughtMotion
@@ -75,9 +79,10 @@ public class RLocationManager: NSObject {
     public weak var delegate: RLocationManagerDelegate?
     /// Last location received
     fileprivate var lastLocation: CLLocation? = nil
+    
+    // Timers
     fileprivate var gpsTrackTimer: Timer?
     fileprivate var stateTrackTimer: Timer?
-    
     private var stateTrackTimerInterval: TimeInterval {
         switch motionState {
         case .inMotion:
@@ -181,7 +186,7 @@ public class RLocationManager: NSObject {
         }
     }
     
-    // MARK: - Track
+    // MARK: - Track GPS
     
     func startGPSTrackTimer(_ callback: TimerCallback? = nil) {
         askLocationServiceIfNeeded()
@@ -288,6 +293,8 @@ public class RLocationManager: NSObject {
         RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "GEO EVENT - Sent type \(self.motionState)")
     }
 }
+
+// MARK: - CLLocationManagerDelegate
 
 extension RLocationManager: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -13,10 +13,10 @@ After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 The main focus of the library is to track events, separately in four event-types:
 
 ```
-open    -  for library initialization
-active  -  for when apps become active
-change  -  for front view changed
-custom  -  for developer's choice
+open     -  for library initialization
+geo      -  for when app uses GPS
+deeplink -  for external deeplinks that opens the app
+custom   -  for developer's choice
 ```
 
 ### Prerequisites
@@ -67,7 +67,9 @@ import Retargetly
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> {
 
     ...
-    RManager.initiate(with: sourceHash, forceGPS: true)
+    RManager.initiate(with: source_hash, sendGeoData: sendGeoData, forceGPS: forceGPS) { (error) in
+    ...
+    }
     ...
 
     return true
@@ -76,7 +78,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 It will automatically track the 'open' event every time it initializes.
 
-**Note:** In order to use 'forceGPS' with true value,  A key-value *NSLocationWhenInUseUsageDescription* must be included in the 'info.plist' file. You can also use an instance of *CLLocationManager*, named 'locationManager' in order to use the same object that controls location services within the library, like so:
+**Note:** In order to use 'sendGeoData' and 'forceGPS' with true values,  A key-value *NSLocationAlwaysAndWhenInUseUsageDescription* must be included in the 'info.plist' file. You can also use an instance of *CLLocationManager*, named 'locationManager' or a *RLocationManager* object named 'rLocationManager' in order to use the same object that controls location services within the library, like so:
 
 ```Swift
 import Retargetly
@@ -86,16 +88,21 @@ class MyViewController: UIViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        RManager.default.locationManager?.delegate = self
+        // Delegate to RLocationManager object from SDK
+        RManager.default.rLocationManager?.delegate
+        // Delegate to CLLocationManager object from RLocationManager on SDK
+        RManager.default.rLocationManager?.locationManager.delegate = self
     }
     
     ...
 }
 ```
 
-*Retargetly iOS SDK* is capable to track the 'change' event every time an 'UIViewController' subclass or inheritance is presented, by its 'viewDidAppear' method overrided.
+In order to allow the SDK to fetch location values in background, you must set a key-value *UIBackgroundModes* with *location* subvalue in the 'info.plist'.
 
-Also, the library will track the 'active' event every time the app becomes active (that means when is in foreground), by its 'UIApplicationDidBecomeActive' notification.
+*Retargetly iOS SDK* is capable to track the 'deeplink' event every time an external URL opens the application using the SDK, in order to do so, you must make an inheritance from *RAppDelegate* class on your '@UIApplicationMain AppDelegate' class.
+
+Also, *Retargetly iOS SDK* will send 'geo' events when the application has permissions and has all configuration, it follows an internal logic to track the device location only when needed.
 
 Finally, in order to track an 'custom' event, you need to do so:
 
