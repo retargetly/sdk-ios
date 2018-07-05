@@ -1,4 +1,4 @@
-![Retargetly](http://www.retargetly.com/retargetly-logo.svg)
+![Retargetly](https://github.com/retargetly/sdk-ios/blob/master/rely_artboard.png)
 
 # Retargetly iOS SDK
 
@@ -136,4 +136,4 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* [**José Valderrama**](mailto:josevalderrama18@gmail.com) - [NextDots](http://nextdots.com/)
+* [**José Valderrama**](https://www.linkedin.com/in/josevalderrama92/) - [NextDots](http://nextdots.com/)
