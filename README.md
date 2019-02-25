@@ -23,7 +23,7 @@ custom   -  for developer's choice
 
 ```
 Cocoapods
-Xcode - Swift 3
+Xcode - Swift 4.2
 ```
 
 ### Installing
@@ -56,7 +56,7 @@ $ pod install
 
 ## Usage
 
-After installing, you might do some changes in the project that has *Retargetly iOS SDK*, the first thing is initialize the library, like so:
+After installing, you might do some changes in the project that has *Retargetly iOS SDK*, the first thing is initialize the library, below we can see two(2) ways to do this
 
 The recommended place to initialize the library is 'AppDelegate' file:
 
@@ -66,8 +66,17 @@ import Retargetly
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> {
 
+    // initialization with full control 
     ...
-    RManager.initiate(with: source_hash, sendGeoData: sendGeoData, forceGPS: forceGPS) { (error) in
+    RManager.initiate(with: source_hash, sendGeoData: sendGeoData, forceGPS: forceGPS, sendLanguageEnabled: sendLanguageEnabled, sendManufacturerEnabled: sendManufacturerEnabled, sendDeviceNameEnabled: sendDeviceNameEnabled, sendWifiNameEnabled: sendWifiNameEnabled) { (error) in
+    ...
+    }
+    ...
+    
+    
+    // initialization with preset configuration
+    ...
+    RManager.initiate(sourceHash: sourceHash) { (error) in
     ...
     }
     ...
@@ -104,7 +113,7 @@ In order to allow the SDK to fetch location values in background, you must set a
 
 Also, *Retargetly iOS SDK* will send 'geo' events when the application has permissions and has all configuration, it follows an internal logic to track the device location only when needed.
 
-Finally, in order to track an 'custom' event, you need to do so:
+Finally, an example how to track a 'custom' event:
 
 ```Swift
 import Retargetly
@@ -126,7 +135,7 @@ The 'custom' event, allows you to have an complation callback, and it might have
 
 ## Built With
 
-* [Swift 3](https://swift.org/documentation/) - Programming language
+* [Swift 4.2](https://swift.org/documentation/) - Programming language
 * [Cocoapods](https://cocoapods.org/) - Dependency Management
 
 
@@ -136,4 +145,17 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* [**José Valderrama**](https://www.linkedin.com/in/josevalderrama92/) - [NextDots](http://nextdots.com/)
+* [**José Valderrama**](https://www.linkedin.com/in/josevalderrama92/)
+*-*
+Which is the information that the SDK sends to the DMP?
+
+- Device ID: anonymous advertising identificator, the ones provided by Google and Apple.
+- Type of event: which is the event that triggered the data reception, it may be application open, custom event (if configured), geo event (if activated), or deeplink (if configured).
+- Custom Data: this is only for custom events. Custom events send custom data in key/value format.
+- Lat/Long/Accuracy (if geo is active): when gps data is being tracked on the SDK, geo events are being sent to the DMP.
+- Installed apps: only on open events. It sends a list of installed apps on the device (only works for android).
+- Manufacturer: device manufacturer name.
+- Device: celular model.
+- Application: which is the current application that is sending the data.
+- Language: which is the device configured language.
+- Wifi Name: which is the name of the wifi that the user is connected to.

@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 extension CLLocation {
-    public var formatted: String {
+    @objc public var formatted: String {
         return "\(self.coordinate.latitude);\(self.coordinate.longitude);\(self.altitude)"
     }
 }

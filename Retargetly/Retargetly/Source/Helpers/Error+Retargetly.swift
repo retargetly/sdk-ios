@@ -14,7 +14,8 @@ import Foundation
 // EN: English
 // ES: Spanish
 // PT: Portuguese
-public enum RError: Int, CustomNSError, LocalizedError {
+@objc public enum RError: Int, CustomNSError, LocalizedError {
+    
     /// Could not initiate the SDK
     case initializationFatal
     /// Could not initiate becase some fields
@@ -61,6 +62,7 @@ public enum RError: Int, CustomNSError, LocalizedError {
     public static var errorDomain : String {
         return "Retargetly"
     }
+    
 }
 
 //public enum RErrorFromServer: String, CustomStringConvertible {
@@ -73,15 +75,17 @@ public enum RError: Int, CustomNSError, LocalizedError {
 //}
 
 public extension NSError {
-    class public func errorFromString(_ reason: String) -> NSError? {
+    
+    @objc class public func errorFromString(_ reason: String) -> NSError? {
         return NSError(domain: RError.errorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey : reason])
     }
     
-//    class public func errorFromServer(_ error: RErrorFromServer) -> NSError? {
+//    @objc class public func errorFromServer(_ error: RErrorFromServer) -> NSError? {
 //        return NSError(domain: RError.errorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey : error.description])
 //    }
     
-    class public func errorFromRetargetlyError(_ retargetlyError: RError) -> NSError? {        
+    @objc class public func errorFromRetargetlyError(_ retargetlyError: RError) -> NSError? {
         return NSError(domain: RError.errorDomain, code: retargetlyError.errorCode, userInfo: [NSLocalizedDescriptionKey : retargetlyError.errorDescription ?? retargetlyError.localizedDescription])
     }
+    
 }

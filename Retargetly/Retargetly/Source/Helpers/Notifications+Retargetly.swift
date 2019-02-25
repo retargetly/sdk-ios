@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+// TODO: Possible deprecated soon?
+
 extension Notification.Name {
     static let managerReady = NSNotification.Name("managerReady")
 }

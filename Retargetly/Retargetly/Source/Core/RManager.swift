@@ -51,7 +51,7 @@ fileprivate enum EndpointParam: String {
  
  Manages an singleton property named 'default' for its use
 */
-public class RManager: NSObject {
+@objcMembers public class RManager: NSObject {
     
     // MARK: - Instance Members
     
@@ -60,10 +60,18 @@ public class RManager: NSObject {
     let sourceHash: String
     let forceGPS: Bool
     let sendGeoData: Bool
+    let sendLanguageEnabled: Bool
+    let sendManufacturerEnabled: Bool
+    let sendDeviceNameEnabled: Bool
+    let sendWifiNameEnabled: Bool
     final let mf: String = "Apple Inc."
     let device: String
     let language: String?
-    var uid: String?
+    // Check whether advertising tracking is enabled then get and return IDFA
+    var uid: String? {
+        return !ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? nil :
+        ASIdentifierManager.shared().advertisingIdentifier.uuidString
+    }
     static var deeplink: URL? = nil {
         didSet {
             processDeeplink()
@@ -108,9 +116,27 @@ public class RManager: NSObject {
         }
     }
     
+    public override var description: String {
+        return """
+        forceGPS: \(forceGPS)
+        sendGeoData: \(sendGeoData)
+        sendLanguageEnabled: \(sendLanguageEnabled)
+        sendManufacturerEnabled: \(sendManufacturerEnabled)
+        sendDeviceNameEnabled: \(sendDeviceNameEnabled)
+        sendWifiNameEnabled: \(sendWifiNameEnabled)
+        """
+    }
+    
     // MARK: - Methods
     
-    private init(with sourceHash: String, sendGeoData: Bool, forceGPS: Bool) {
+    private init(with sourceHash: String,
+                 sendGeoData: Bool,
+                 forceGPS: Bool,
+                 sendLanguageEnabled: Bool,
+                 sendManufacturerEnabled: Bool,
+                 sendDeviceNameEnabled: Bool,
+                 sendWifiNameEnabled: Bool) {
+        
         guard let app = Bundle.main.bundleIdentifier, let appn = Bundle.main.displayName,
             !sourceHash.isEmpty
             else {
@@ -124,28 +150,43 @@ public class RManager: NSObject {
         self.sendGeoData = sendGeoData
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
+        self.sendLanguageEnabled = sendLanguageEnabled
+        self.sendManufacturerEnabled = sendManufacturerEnabled
+        self.sendDeviceNameEnabled = sendDeviceNameEnabled
+        self.sendWifiNameEnabled = sendWifiNameEnabled
+        
         super.init()
-        self.uid = self.identifierForAdvertising()
         swizzlingCLLocationManager(CLLocationManager.self)
     }
     
-    private func identifierForAdvertising() -> String? {
-        // Check whether advertising tracking is enabled
-        guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
-            return nil
-        }
+    /// Initialization with preset configuration
+    public static func initiate(activeOptionalFlags: Bool = true,
+                                sourceHash: String,
+                                callback: CallbackWithError? = nil) {
         
-        // Get and return IDFA
-        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        if activeOptionalFlags {
+            initiate(with: sourceHash, callback: callback)
+        } else {
+            initiate(with: sourceHash, sendGeoData: false, forceGPS: false, sendLanguageEnabled: false, sendManufacturerEnabled: false, sendDeviceNameEnabled: false, sendWifiNameEnabled: false, callback: callback)
+        }
     }
     
-    public static func initiate(with sourceHash: String, sendGeoData: Bool = true, forceGPS: Bool = true, callback: CallbackWithError? = nil) {
+    /// Initialization with full control
+    public static func initiate(with sourceHash: String,
+                                sendGeoData: Bool = true,
+                                forceGPS: Bool = false,
+                                sendLanguageEnabled: Bool = true,
+                                sendManufacturerEnabled: Bool = true,
+                                sendDeviceNameEnabled: Bool = true,
+                                sendWifiNameEnabled: Bool = true,
+                                callback: CallbackWithError? = nil) {
+        
         // Turn off previous implementation
         if shared != nil {
             shared.rLocationManager?.stopTracking()
         }
         
-        shared = RManager(with: sourceHash, sendGeoData: sendGeoData, forceGPS: forceGPS)
+        shared = RManager(with: sourceHash, sendGeoData: sendGeoData, forceGPS: forceGPS, sendLanguageEnabled: sendLanguageEnabled, sendManufacturerEnabled: sendManufacturerEnabled, sendDeviceNameEnabled: sendDeviceNameEnabled, sendWifiNameEnabled: sendWifiNameEnabled)
         shared.initiateSDKWithServer { (json, initWithServerError) in
             shared.track(et: .open, value: nil, callback: { (error) in
                 if !(!shared.sendGeoData && !shared.forceGPS) {
@@ -249,7 +290,6 @@ public class RManager: NSObject {
                 fatalError(RError.malformedParams.errorDescription!)
             }
             
-            print("\ntrack params:", String(data: httpBody, encoding: .utf8) ?? "", "\n")
             request.httpBody = httpBody
             
             let session = URLSession.shared

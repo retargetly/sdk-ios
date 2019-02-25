@@ -9,11 +9,11 @@
 import UIKit
 
 /// Custom class that allows to receive externals deeplink with the SDK
-open class RAppDelegate: UIResponder, UIApplicationDelegate {
+@objcMembers open class RAppDelegate: UIResponder, UIApplicationDelegate {
     
     open var window: UIWindow?
     
-    open func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         RManager.deeplink = url
         return true
     }

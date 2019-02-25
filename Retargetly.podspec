@@ -9,7 +9,7 @@ s.requires_arc = true
 
 
 # 2
-s.version = '1.2.0'
+s.version = '1.2.1'
 
 
 # 3
@@ -21,7 +21,7 @@ s.author = { 'José Valderrama' => 'josevalderrama18@gmail.com' }
 
 
 # 5
-s.homepage = 'http://nextdots.com/'
+s.homepage = 'http://www.retargetly.com/'
 
 
 # 6
@@ -30,5 +30,8 @@ s.source = { :git => 'https://github.com/retargetly/sdk-ios.git', :tag => s.vers
 
 # 7
 s.source_files = 'Retargetly/Retargetly/**/*.{swift}'
+
+# 8
+s.swift_version = "4.2"
 
 end

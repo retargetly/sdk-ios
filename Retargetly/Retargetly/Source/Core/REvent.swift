@@ -45,8 +45,6 @@ internal enum REventParam: String {
     case mf = "mf"
     /// Device model
     case device = "device"
-    /// IP Address
-    case ip = "ip"
     
     // MARK: - GEO Event Params
     /// Device location latitude
@@ -80,29 +78,35 @@ internal class REvent {
     }
     
     func getParams(_ callback: @escaping (_ params: JSON?) -> Void) {
-        NetworkUtils.getPublicIP { (publicIP)  in
-            let manager = RManager.default
-            
-            var parameters : JSON =
-                [
-                    REventParam.et.rawValue : self.et.rawValue,
-                    REventParam.uid.rawValue : manager.uid ?? "",
-                    REventParam.app.rawValue : manager.app,
-                    REventParam.appn.rawValue : manager.appn,
-                    REventParam.sourceHash.rawValue : manager.sourceHash,
-                    REventParam.lan.rawValue : manager.language ?? "",
-                    REventParam.mf.rawValue : manager.mf,
-                    REventParam.device.rawValue : manager.device,
-                    REventParam.ip.rawValue : publicIP ?? ""
-                    ]
-            
-            if let value = self.value {
-                parameters.updateValue(value, forKey: REventParam.value.rawValue)
-            }
-            
-            self.addEventParams(with: &parameters, manager: manager)
-            callback(parameters)
+        let manager = RManager.default
+        
+        var parameters: JSON =
+            [
+                REventParam.et.rawValue : self.et.rawValue,
+                REventParam.uid.rawValue : manager.uid ?? "",
+                REventParam.app.rawValue : manager.app,
+                REventParam.appn.rawValue : manager.appn,
+                REventParam.sourceHash.rawValue : manager.sourceHash
+        ]
+        
+        if let value = self.value {
+            parameters.updateValue(value, forKey: REventParam.value.rawValue)
         }
+        
+        if manager.sendLanguageEnabled {
+            parameters.updateValue(manager.language ?? "", forKey: REventParam.lan.rawValue)
+        }
+        
+        if manager.sendManufacturerEnabled {
+            parameters.updateValue(manager.mf, forKey: REventParam.mf.rawValue)
+        }
+        
+        if manager.sendDeviceNameEnabled {
+            parameters.updateValue(manager.device, forKey: REventParam.device.rawValue)
+        }
+        
+        self.addEventParams(with: &parameters, manager: manager)
+        callback(parameters)
     }
     
     private func addEventParams(with parameters: inout JSON, manager: RManager) {
@@ -120,12 +124,16 @@ internal class REvent {
                     return
             }
             
-            let value: JSON = [REventParam.lat.rawValue: location.coordinate.latitude,
+            var value: JSON = [REventParam.lat.rawValue: location.coordinate.latitude,
                                REventParam.lng.rawValue: location.coordinate.longitude,
                                REventParam.alt.rawValue: location.altitude,
                                REventParam.accuracy.rawValue: location.horizontalAccuracy,
-                               REventParam.altAccuracy.rawValue: location.verticalAccuracy,
-                               REventParam.nwifi.rawValue: NetworkUtils.getWiFiSSID() ?? ""]
+                               REventParam.altAccuracy.rawValue: location.verticalAccuracy]
+            
+            if manager.sendWifiNameEnabled {
+                value.updateValue(UIDevice.current.WiFiSSID ?? "", forKey: REventParam.nwifi.rawValue)
+            }
+            
             parameters.updateValue(value, forKey: REventParam.value.rawValue)
         case .deeplink:
             guard let deeplink = RManager.deeplink else {

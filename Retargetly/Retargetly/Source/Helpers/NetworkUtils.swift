@@ -7,30 +7,12 @@
 //
 
 import Foundation
-import SystemConfiguration.CaptiveNetwork
 
-/// Tuple for network address
-/// String: IP Address
-/// Bool: if Wifi address or not
-public typealias NetAddress = (String, Bool)
-
+// TODO: Possible deprecated soon?
+@objcMembers
 public class NetworkUtils {
     
     private init(){}
-    
-    // Returns the WiFi's name if connected
-    public class func getWiFiSSID() -> String? {
-        var ssid: String?
-        if let interfaces = CNCopySupportedInterfaces() as NSArray? {
-            for interface in interfaces {
-                if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
-                    ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
-                    break
-                }
-            }
-        }
-        return ssid
-    }
     
     /// Returns public IP by a web page service
     public class func getPublicIP(_ callback: @escaping (_ publicIP: String?) -> Void) {

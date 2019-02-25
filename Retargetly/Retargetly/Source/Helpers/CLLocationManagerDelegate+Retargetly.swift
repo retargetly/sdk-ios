@@ -11,7 +11,7 @@ import Foundation
 
 extension CLLocationManager {
     /// Use this var to check if service is usable. It means, the service is active, and ready to use.
-    public class var isServiceUsable: Bool {
+    @objc public class var isServiceUsable: Bool {
         guard CLLocationManager.locationServicesEnabled() else {
             return false
         }

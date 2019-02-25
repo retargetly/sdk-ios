@@ -20,7 +20,7 @@ import CoreLocation
 /**
  Retargetly Location Service manager, allows to track GPS values.
  */
-public class RLocationManager: NSObject {
+@objcMembers public class RLocationManager: NSObject {
     
     typealias TimerCallback = () -> Void
     
@@ -127,11 +127,6 @@ public class RLocationManager: NSObject {
         self.staticFrequency = staticFrequency
         self.motionDetectionFrequency = motionDetectionFrequency
         self.motionThreshold = motionThreshold
-        
-//        self.motionFrequency = 4
-//        self.staticFrequency = 4
-//        self.motionDetectionFrequency = 2
-//        self.motionThreshold = 2
         
         super.init()
         self.configureCLLocationManager()

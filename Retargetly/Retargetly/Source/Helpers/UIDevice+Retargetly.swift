@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration.CaptiveNetwork
 
 //https://gist.github.com/adamawolf/3048717
 
@@ -47,11 +48,15 @@ internal extension UIDevice {
         case "iPhone9,3" : return "iPhone 7"
         case "iPhone9,4" : return "iPhone 7 Plus"
         case "iPhone10,1" : return "iPhone 8"
-        case "iPhone10,4" : return "iPhone 8"
         case "iPhone10,2" : return "iPhone 8 Plus"
+        case "iPhone10,3" : return "iPhone X Global"
+        case "iPhone10,4" : return "iPhone 8"
         case "iPhone10,5" : return "iPhone 8 Plus"
-        case "iPhone10,3" : return "iPhone X"
-        case "iPhone10,6" : return "iPhone X"
+        case "iPhone10,6" : return "iPhone X GSM"
+        case "iPhone11,2" : return "iPhone XS"
+        case "iPhone11,4" : return "iPhone XS Max China"
+        case "iPhone11,6" : return "iPhone XS Max"
+        case "iPhone11,8" : return "iPhone XR"
             
         case "iPod1,1" : return "1st Gen iPod"
         case "iPod2,1" : return "2nd Gen iPod"
@@ -84,6 +89,7 @@ internal extension UIDevice {
         case "iPad4,8" : return "iPad mini 3 (GSM+CDMA)"
         case "iPad4,9" : return "iPad Mini 3 (China)"
         case "iPad5,1" : return "iPad mini 4 (WiFi)"
+        case "iPad5,2" : return "4th Gen iPad mini (WiFi+Cellular)"
         case "iPad5,3" : return "iPad Air 2 (WiFi)"
         case "iPad5,4" : return "iPad Air 2 (Cellular)"
         case "iPad6,3" : return "iPad Pro (9.7 inch, WiFi)"
@@ -92,10 +98,20 @@ internal extension UIDevice {
         case "iPad6,8" : return "iPad Pro (12.9 inch, WiFi+LTE)"
         case "iPad6,11" : return "iPad (2017)"
         case "iPad6,12" : return "iPad (2017)"
-        case "iPad7,1" : return "iPad Pro 2G"
-        case "iPad7,2" : return "iPad Pro 2G"
+        case "iPad7,1" : return "iPad Pro 2nd Gen (WiFi)"
+        case "iPad7,2" : return "iPad Pro 2nd Gen (WiFi+Cellular)"
         case "iPad7,3" : return "iPad Pro 10.5-inch"
         case "iPad7,4" : return "iPad Pro 10.5-inch"
+        case "iPad7,5" : return "iPad 6th Gen (WiFi)"
+        case "iPad7,6" : return "iPad 6th Gen (WiFi+Cellular)"
+        case "iPad8,1" : return "iPad Pro 3rd Gen (11 inch, WiFi)"
+        case "iPad8,2" : return "iPad Pro 3rd Gen (11 inch, 1TB, WiFi)"
+        case "iPad8,3" : return "iPad Pro 3rd Gen (11 inch, WiFi+Cellular)"
+        case "iPad8,4" : return "iPad Pro 3rd Gen (11 inch, 1TB, WiFi+Cellular)"
+        case "iPad8,5" : return "iPad Pro 3rd Gen (12.9 inch, WiFi)"
+        case "iPad8,6" : return "iPad Pro 3rd Gen (12.9 inch, 1TB, WiFi)"
+        case "iPad8,7" : return "iPad Pro 3rd Gen (12.9 inch, WiFi+Cellular)"
+        case "iPad8,8" : return "iPad Pro 3rd Gen (12.9 inch, 1TB, WiFi+Cellular)"
             
         case "Watch1,1" : return "Apple Watch 38mm case"
         case "Watch1,2" : return "Apple Watch 38mm case"
@@ -103,7 +119,26 @@ internal extension UIDevice {
         case "Watch2,7" : return "Apple Watch Series 1 42mm case"
         case "Watch2,3" : return "Apple Watch Series 2 38mm case"
         case "Watch2,4" : return "Apple Watch Series 2 42mm case"
+        case "Watch3,1" : return "Apple Watch Series 3 38mm case (GPS+Cellular)"
+        case "Watch3,2" : return "Apple Watch Series 3 42mm case (GPS+Cellular)"
+        case "Watch3,3" : return "Apple Watch Series 3 38mm case (GPS)"
+        case "Watch3,4" : return "Apple Watch Series 3 42mm case (GPS)"
+        case "Watch4,1" : return "Apple Watch Series 4 40mm case (GPS)"
+        case "Watch4,2" : return "Apple Watch Series 4 44mm case (GPS)"
+        case "Watch4,3" : return "Apple Watch Series 4 40mm case (GPS+Cellular)"
+        case "Watch4,4" : return "Apple Watch Series 4 44mm case (GPS+Cellular)"
         default : return identifier
         }
     }
+    
+    var WiFiSSID: String? {
+        guard let interfaces = CNCopySupportedInterfaces() as? [String] else { return nil }
+        let key = kCNNetworkInfoKeySSID as String
+        for interface in interfaces {
+            guard let interfaceInfo = CNCopyCurrentNetworkInfo(interface as CFString) as NSDictionary? else { continue }
+            return interfaceInfo[key] as? String
+        }
+        return nil
+    }
+    
 }
