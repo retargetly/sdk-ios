@@ -146,8 +146,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * [**José Valderrama**](https://www.linkedin.com/in/josevalderrama92/)
-*-*
-Which is the information that the SDK sends to the DMP?
+---
+###### Which is the information that the SDK sends to the DMP?
 
 - Device ID: anonymous advertising identificator, the ones provided by Google and Apple.
 - Type of event: which is the event that triggered the data reception, it may be application open, custom event (if configured), geo event (if activated), or deeplink (if configured).
