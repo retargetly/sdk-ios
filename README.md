@@ -34,7 +34,7 @@ In order to use the library, it must be included in the project via *cocoapods*,
 $ gem install cocoapods
 ```
 
-Then, specify 'Retargerlty' pod in *podfile*:
+Then, specify 'Retargetly' pod in *podfile*:
 
 ```
 pod 'Retargetly'
