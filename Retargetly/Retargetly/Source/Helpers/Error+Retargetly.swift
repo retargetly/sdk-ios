@@ -3,7 +3,7 @@
 //  Retargetly
 //
 //  Created by José Valderrama on 6/13/18.
-//  Copyright © 2018 NextDots. All rights reserved.
+//  Copyright © 2018 Retargetly. All rights reserved.
 //
 
 import Foundation
@@ -76,7 +76,7 @@ import Foundation
 
 public extension NSError {
     
-    @objc class public func errorFromString(_ reason: String) -> NSError? {
+    @objc class func errorFromString(_ reason: String) -> NSError? {
         return NSError(domain: RError.errorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey : reason])
     }
     
@@ -84,7 +84,7 @@ public extension NSError {
 //        return NSError(domain: RError.errorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey : error.description])
 //    }
     
-    @objc class public func errorFromRetargetlyError(_ retargetlyError: RError) -> NSError? {
+    @objc class func errorFromRetargetlyError(_ retargetlyError: RError) -> NSError? {
         return NSError(domain: RError.errorDomain, code: retargetlyError.errorCode, userInfo: [NSLocalizedDescriptionKey : retargetlyError.errorDescription ?? retargetlyError.localizedDescription])
     }
     

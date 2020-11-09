@@ -3,7 +3,7 @@
 //  Retargetly
 //
 //  Created by José Valderrama on 24/06/2018.
-//  Copyright © 2018 NextDots. All rights reserved.
+//  Copyright © 2018 Retargetly. All rights reserved.
 //
 
 import UIKit

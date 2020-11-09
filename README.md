@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up for running on your local machine for development and testing purposes.
 
 After a git clone, open 'Retargetly.xcodeproj' file to explore the project.
 
@@ -23,7 +23,7 @@ custom   -  for developer's choice
 
 ```
 Cocoapods
-Xcode - Swift 4.2
+Xcode - Swift 5
 ```
 
 ### Installing
@@ -135,7 +135,7 @@ The 'custom' event, allows you to have an complation callback, and it might have
 
 ## Built With
 
-* [Swift 4.2](https://swift.org/documentation/) - Programming language
+* [Swift 5](https://swift.org/documentation/) - Programming language
 * [Cocoapods](https://cocoapods.org/) - Dependency Management
 
 

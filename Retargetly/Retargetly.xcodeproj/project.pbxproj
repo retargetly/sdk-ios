@@ -9,17 +9,8 @@
 /* Begin PBXBuildFile section */
 		AB2343B91F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2343B81F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift */; };
 		AB2FC09520C8D270001FD658 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC09420C8D270001FD658 /* NetworkUtils.swift */; };
-		AB2FC09D20C8D350001FD658 /* RetargetlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC09C20C8D350001FD658 /* RetargetlyTests.swift */; };
-		AB2FC09F20C8D350001FD658 /* Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB947F9E1F2F7742001A7440 /* Retargetly.framework */; };
-		AB2FC0A520C8D3D6001FD658 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
-		AB2FC0A620C8D3DA001FD658 /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
-		AB2FC0A720C8D3E5001FD658 /* CLLocationManagerDelegate+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2343B81F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift */; };
-		AB2FC0A820C8D3E8001FD658 /* UIDevice+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB928AF31F3B727E0032BB46 /* UIDevice+Retargetly.swift */; };
-		AB2FC0A920C8D3EB001FD658 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC09420C8D270001FD658 /* NetworkUtils.swift */; };
 		AB2FC0AB20C8D892001FD658 /* Bundle+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC0AA20C8D892001FD658 /* Bundle+Retargetly.swift */; };
-		AB2FC0AC20C8D924001FD658 /* Bundle+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC0AA20C8D892001FD658 /* Bundle+Retargetly.swift */; };
 		AB54BEEA20D1D9D90073802C /* Error+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB54BEE920D1D9D90073802C /* Error+Retargetly.swift */; };
-		AB54BEEB20D1E18F0073802C /* Error+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB54BEE920D1D9D90073802C /* Error+Retargetly.swift */; };
 		AB6080E620D6E441006BFD06 /* RLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6080E520D6E441006BFD06 /* RLocationManager.swift */; };
 		AB6080E820D71C1F006BFD06 /* CLLocation+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6080E720D71C1F006BFD06 /* CLLocation+Retargetly.swift */; };
 		AB6E118220E0313C002864A4 /* RAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E118120E0313C002864A4 /* RAppDelegate.swift */; };
@@ -28,10 +19,12 @@
 		AB947FA31F2F7742001A7440 /* Retargetly.h in Headers */ = {isa = PBXBuildFile; fileRef = AB947FA11F2F7742001A7440 /* Retargetly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
 		AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAD1F2F79DD001A7440 /* REvent.swift */; };
+		ABB6DB592559F0BD00C789F3 /* RetargetlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB6DB582559F0BD00C789F3 /* RetargetlyTests.swift */; };
+		ABB6DB5B2559F0BD00C789F3 /* Retargetly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB947F9E1F2F7742001A7440 /* Retargetly.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AB2FC0A020C8D350001FD658 /* PBXContainerItemProxy */ = {
+		ABB6DB5C2559F0BD00C789F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB947F951F2F7742001A7440 /* Project object */;
 			proxyType = 1;
@@ -43,9 +36,6 @@
 /* Begin PBXFileReference section */
 		AB2343B81F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManagerDelegate+Retargetly.swift"; sourceTree = "<group>"; };
 		AB2FC09420C8D270001FD658 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
-		AB2FC09A20C8D350001FD658 /* RetargetlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetargetlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB2FC09C20C8D350001FD658 /* RetargetlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetargetlyTests.swift; sourceTree = "<group>"; };
-		AB2FC09E20C8D350001FD658 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB2FC0AA20C8D892001FD658 /* Bundle+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Retargetly.swift"; sourceTree = "<group>"; };
 		AB54BEE920D1D9D90073802C /* Error+Retargetly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+Retargetly.swift"; sourceTree = "<group>"; };
 		AB6080E520D6E441006BFD06 /* RLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLocationManager.swift; sourceTree = "<group>"; };
@@ -58,21 +48,24 @@
 		AB947FA21F2F7742001A7440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB947FAB1F2F791E001A7440 /* RManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RManager.swift; sourceTree = "<group>"; };
 		AB947FAD1F2F79DD001A7440 /* REvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REvent.swift; sourceTree = "<group>"; };
+		ABB6DB562559F0BD00C789F3 /* RetargetlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetargetlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABB6DB582559F0BD00C789F3 /* RetargetlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetargetlyTests.swift; sourceTree = "<group>"; };
+		ABB6DB5A2559F0BD00C789F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AB2FC09720C8D350001FD658 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AB2FC09F20C8D350001FD658 /* Retargetly.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AB947F9A1F2F7742001A7440 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABB6DB532559F0BD00C789F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB6DB5B2559F0BD00C789F3 /* Retargetly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,15 +79,6 @@
 				AB947FA11F2F7742001A7440 /* Retargetly.h */,
 			);
 			path = "Support Files";
-			sourceTree = "<group>";
-		};
-		AB2FC09B20C8D350001FD658 /* RetargetlyTests */ = {
-			isa = PBXGroup;
-			children = (
-				AB2FC09C20C8D350001FD658 /* RetargetlyTests.swift */,
-				AB2FC09E20C8D350001FD658 /* Info.plist */,
-			);
-			path = RetargetlyTests;
 			sourceTree = "<group>";
 		};
 		AB66553C1F3CE1880086D111 /* Helpers */ = {
@@ -115,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				AB947FA01F2F7742001A7440 /* Retargetly */,
-				AB2FC09B20C8D350001FD658 /* RetargetlyTests */,
+				ABB6DB572559F0BD00C789F3 /* RetargetlyTests */,
 				AB947F9F1F2F7742001A7440 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				AB947F9E1F2F7742001A7440 /* Retargetly.framework */,
-				AB2FC09A20C8D350001FD658 /* RetargetlyTests.xctest */,
+				ABB6DB562559F0BD00C789F3 /* RetargetlyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,6 +129,15 @@
 				AB66553C1F3CE1880086D111 /* Helpers */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		ABB6DB572559F0BD00C789F3 /* RetargetlyTests */ = {
+			isa = PBXGroup;
+			children = (
+				ABB6DB582559F0BD00C789F3 /* RetargetlyTests.swift */,
+				ABB6DB5A2559F0BD00C789F3 /* Info.plist */,
+			);
+			path = RetargetlyTests;
 			sourceTree = "<group>";
 		};
 		ABDCF3D21F3D76A3005A9BA0 /* Core */ = {
@@ -172,24 +165,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		AB2FC09920C8D350001FD658 /* RetargetlyTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AB2FC0A220C8D350001FD658 /* Build configuration list for PBXNativeTarget "RetargetlyTests" */;
-			buildPhases = (
-				AB2FC09620C8D350001FD658 /* Sources */,
-				AB2FC09720C8D350001FD658 /* Frameworks */,
-				AB2FC09820C8D350001FD658 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AB2FC0A120C8D350001FD658 /* PBXTargetDependency */,
-			);
-			name = RetargetlyTests;
-			productName = RetargetlyTests;
-			productReference = AB2FC09A20C8D350001FD658 /* RetargetlyTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		AB947F9D1F2F7742001A7440 /* Retargetly */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB947FA61F2F7742001A7440 /* Build configuration list for PBXNativeTarget "Retargetly" */;
@@ -208,32 +183,50 @@
 			productReference = AB947F9E1F2F7742001A7440 /* Retargetly.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		ABB6DB552559F0BD00C789F3 /* RetargetlyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABB6DB5E2559F0BD00C789F3 /* Build configuration list for PBXNativeTarget "RetargetlyTests" */;
+			buildPhases = (
+				ABB6DB522559F0BD00C789F3 /* Sources */,
+				ABB6DB532559F0BD00C789F3 /* Frameworks */,
+				ABB6DB542559F0BD00C789F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABB6DB5D2559F0BD00C789F3 /* PBXTargetDependency */,
+			);
+			name = RetargetlyTests;
+			productName = RetargetlyTests;
+			productReference = ABB6DB562559F0BD00C789F3 /* RetargetlyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		AB947F951F2F7742001A7440 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = NextDots;
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				ORGANIZATIONNAME = Retargetly;
 				TargetAttributes = {
-					AB2FC09920C8D350001FD658 = {
-						CreatedOnToolsVersion = 9.4;
-						ProvisioningStyle = Automatic;
-					};
 					AB947F9D1F2F7742001A7440 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1200;
+					};
+					ABB6DB552559F0BD00C789F3 = {
+						CreatedOnToolsVersion = 12.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = AB947F981F2F7742001A7440 /* Build configuration list for PBXProject "Retargetly" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = en;
+			developmentRegion = Base;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
+				Base,
 			);
 			mainGroup = AB947F941F2F7742001A7440;
 			productRefGroup = AB947F9F1F2F7742001A7440 /* Products */;
@@ -241,20 +234,20 @@
 			projectRoot = "";
 			targets = (
 				AB947F9D1F2F7742001A7440 /* Retargetly */,
-				AB2FC09920C8D350001FD658 /* RetargetlyTests */,
+				ABB6DB552559F0BD00C789F3 /* RetargetlyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AB2FC09820C8D350001FD658 /* Resources */ = {
+		AB947F9C1F2F7742001A7440 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AB947F9C1F2F7742001A7440 /* Resources */ = {
+		ABB6DB542559F0BD00C789F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -264,21 +257,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		AB2FC09620C8D350001FD658 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AB2FC0A520C8D3D6001FD658 /* RManager.swift in Sources */,
-				AB54BEEB20D1E18F0073802C /* Error+Retargetly.swift in Sources */,
-				AB2FC0A720C8D3E5001FD658 /* CLLocationManagerDelegate+Retargetly.swift in Sources */,
-				AB2FC09D20C8D350001FD658 /* RetargetlyTests.swift in Sources */,
-				AB2FC0A620C8D3DA001FD658 /* REvent.swift in Sources */,
-				AB2FC0A920C8D3EB001FD658 /* NetworkUtils.swift in Sources */,
-				AB2FC0A820C8D3E8001FD658 /* UIDevice+Retargetly.swift in Sources */,
-				AB2FC0AC20C8D924001FD658 /* Bundle+Retargetly.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AB947F991F2F7742001A7440 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -297,53 +275,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABB6DB522559F0BD00C789F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB6DB592559F0BD00C789F3 /* RetargetlyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AB2FC0A120C8D350001FD658 /* PBXTargetDependency */ = {
+		ABB6DB5D2559F0BD00C789F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AB947F9D1F2F7742001A7440 /* Retargetly */;
-			targetProxy = AB2FC0A020C8D350001FD658 /* PBXContainerItemProxy */;
+			targetProxy = ABB6DB5C2559F0BD00C789F3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		AB2FC0A320C8D350001FD658 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5TE8VJRL4Q;
-				INFOPLIST_FILE = RetargetlyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nextdots.RetargetlyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		AB2FC0A420C8D350001FD658 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5TE8VJRL4Q;
-				INFOPLIST_FILE = RetargetlyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nextdots.RetargetlyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		AB947FA41F2F7742001A7440 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -369,6 +319,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -395,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -433,6 +384,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -453,7 +405,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -476,14 +428,15 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Retargetly/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextdots.Retargetly;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -499,13 +452,47 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Retargetly/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextdots.Retargetly;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ABB6DB5F2559F0BD00C789F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RetargetlyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Retargetly.RetargetlyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ABB6DB602559F0BD00C789F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RetargetlyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Retargetly.RetargetlyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -513,15 +500,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AB2FC0A220C8D350001FD658 /* Build configuration list for PBXNativeTarget "RetargetlyTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AB2FC0A320C8D350001FD658 /* Debug */,
-				AB2FC0A420C8D350001FD658 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		AB947F981F2F7742001A7440 /* Build configuration list for PBXProject "Retargetly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -536,6 +514,15 @@
 			buildConfigurations = (
 				AB947FA71F2F7742001A7440 /* Debug */,
 				AB947FA81F2F7742001A7440 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABB6DB5E2559F0BD00C789F3 /* Build configuration list for PBXNativeTarget "RetargetlyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABB6DB5F2559F0BD00C789F3 /* Debug */,
+				ABB6DB602559F0BD00C789F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

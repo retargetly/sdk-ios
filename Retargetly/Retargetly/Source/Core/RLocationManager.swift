@@ -3,7 +3,7 @@
 //  Retargetly
 //
 //  Created by José Valderrama on 17/06/2018.
-//  Copyright © 2018 NextDots. All rights reserved.
+//  Copyright © 2018 Retargetly. All rights reserved.
 //
 
 import Foundation
@@ -194,13 +194,14 @@ import CoreLocation
         self.stopTracking {
             // Creates and schedule the new track timer
             DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else {
+                guard let strongSelf = self,
+                      let locationManager = strongSelf.locationManager else {
                     return
                 }
                 
                 strongSelf.sendTrackedLocation()
-                strongSelf.gpsTrackTimer = Timer.scheduledTimer(timeInterval: strongSelf.motionDetectionFrequency, target: strongSelf.locationManager, selector: #selector(strongSelf.locationManager.startUpdatingLocation), userInfo: nil, repeats: true)
-                strongSelf.locationManager.startUpdatingLocation()
+                strongSelf.gpsTrackTimer = Timer.scheduledTimer(timeInterval: strongSelf.motionDetectionFrequency, target: locationManager, selector: #selector(locationManager.startUpdatingLocation), userInfo: nil, repeats: true)
+                locationManager.startUpdatingLocation()
                 
                 callback?()
             }
