@@ -56,8 +56,7 @@ $ pod install
 
 ## Usage
 
-After installing, you might do some changes in the project that has *Retargetly iOS SDK*, the first thing is initialize the library, below we can see two(2) ways to do this
-
+After installing, you might make some changes in the project that has *Retargetly iOS SDK*, the first thing to do is initialize the library.
 The recommended place to initialize the library is 'AppDelegate' file:
 
 ```Swift
@@ -66,9 +65,9 @@ import Retargetly
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> {
 
-    // initialization with full control 
+    // Obj-C brigde builder
     ...
-    RManager.initiate(with: source_hash, sendGeoData: sendGeoData, forceGPS: forceGPS, sendLanguageEnabled: sendLanguageEnabled, sendManufacturerEnabled: sendManufacturerEnabled, sendDeviceNameEnabled: sendDeviceNameEnabled, sendWifiNameEnabled: sendWifiNameEnabled) { (error) in
+    RManager.initiate(with: sourceHash, sendGeoData: sendGeoData, forceGPS: forceGPS, sendLanguageEnabled: sendLanguageEnabled, sendManufacturerEnabled: sendManufacturerEnabled, sendDeviceNameEnabled: sendDeviceNameEnabled, sendWifiNameEnabled: sendWifiNameEnabled) { (error) in
     ...
     }
     ...
@@ -80,6 +79,21 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     ...
     }
     ...
+    
+    
+    // initialization with full control 
+    let config = RManagerConfiguration(sourceHash: sourceHash,
+                                   sendGeoData: sendGeoData,
+                                   forceGPS: forceGPS,
+                                   sendLanguageEnabled: sendLanguageEnabled,
+                                   sendManufacturerEnabled: sendManufacturerEnabled,
+                                   sendDeviceNameEnabled: sendDeviceNameEnabled,
+                                   sendWifiNameEnabled: sendWifiNameEnabled)
+    ...
+    RManager.initiate(with: config) { (error) in
+    ...
+    }
+    ...
 
     return true
 }
@@ -87,7 +101,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 It will automatically track the 'open' event every time it initializes.
 
-**Note:** In order to use 'sendGeoData' and 'forceGPS' with true values,  A key-value *NSLocationAlwaysAndWhenInUseUsageDescription* must be included in the 'info.plist' file. You can also use an instance of *CLLocationManager*, named 'locationManager' or a *RLocationManager* object named 'rLocationManager' in order to use the same object that controls location services within the library, like so:
+**Note:** In order to use 'sendGeoData' and 'forceGPS' with true values,  A key-value [*NSLocationAlwaysAndWhenInUseUsageDescription* (iOS 11.0+)](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysandwheninuseusagedescription) / [*NSLocationAlwaysUsageDescription* (iOS 8.0–10.0)](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysusagedescription) must be included in the 'info.plist' file. You can also use an instance of *CLLocationManager*, named 'locationManager' or a *RLocationManager* object named 'rLocationManager' in order to use the same object that controls location services within the library, like so:
 
 ```Swift
 import Retargetly
@@ -98,16 +112,16 @@ class MyViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Delegate to RLocationManager object from SDK
-        RManager.default.rLocationManager?.delegate
+        RManager.default?.rLocationManager?.delegate
         // Delegate to CLLocationManager object from RLocationManager on SDK
-        RManager.default.rLocationManager?.locationManager.delegate = self
+        RManager.default?.rLocationManager?.locationManager.delegate = self
     }
     
     ...
 }
 ```
 
-In order to allow the SDK to fetch location values in background, you must set a key-value *UIBackgroundModes* with *location* subvalue in the 'info.plist'.
+In order to allow the SDK to fetch location values in [background](https://developer.apple.com/documentation/corelocation/cllocationmanager/1620568-allowsbackgroundlocationupdates), you must set a key-value *UIBackgroundModes* with *location* subvalue in the 'info.plist'.
 
 *Retargetly iOS SDK* is capable to track the 'deeplink' event every time an external URL opens the application using the SDK, in order to do so, you must make an inheritance from *RAppDelegate* class on your '@UIApplicationMain AppDelegate' class.
 
@@ -123,7 +137,7 @@ func anAction() {
 
     ...
     let aJSONStyleValue = ["aCustomValueField": "someValue", "aCustomValueField2": 200]
-    RManager.default.track(value: aJSONStyleValue) {(error) in
+    RManager.default?.track(value: aJSONStyleValue) { (error) in
         print(error)
     }
     ...

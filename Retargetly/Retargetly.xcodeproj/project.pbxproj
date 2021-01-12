@@ -8,13 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		AB2343B91F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2343B81F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift */; };
-		AB2FC09520C8D270001FD658 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC09420C8D270001FD658 /* NetworkUtils.swift */; };
+		AB2F636825ADF6B300B92B15 /* RManagerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F636725ADF6B300B92B15 /* RManagerConfiguration.swift */; };
 		AB2FC0AB20C8D892001FD658 /* Bundle+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FC0AA20C8D892001FD658 /* Bundle+Retargetly.swift */; };
 		AB54BEEA20D1D9D90073802C /* Error+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB54BEE920D1D9D90073802C /* Error+Retargetly.swift */; };
 		AB6080E620D6E441006BFD06 /* RLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6080E520D6E441006BFD06 /* RLocationManager.swift */; };
-		AB6080E820D71C1F006BFD06 /* CLLocation+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6080E720D71C1F006BFD06 /* CLLocation+Retargetly.swift */; };
 		AB6E118220E0313C002864A4 /* RAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E118120E0313C002864A4 /* RAppDelegate.swift */; };
-		AB6E118420E07B9E002864A4 /* Notifications+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E118320E07B9E002864A4 /* Notifications+Retargetly.swift */; };
 		AB928AF41F3B727E0032BB46 /* UIDevice+Retargetly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB928AF31F3B727E0032BB46 /* UIDevice+Retargetly.swift */; };
 		AB947FA31F2F7742001A7440 /* Retargetly.h in Headers */ = {isa = PBXBuildFile; fileRef = AB947FA11F2F7742001A7440 /* Retargetly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB947FAB1F2F791E001A7440 /* RManager.swift */; };
@@ -35,13 +33,11 @@
 
 /* Begin PBXFileReference section */
 		AB2343B81F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManagerDelegate+Retargetly.swift"; sourceTree = "<group>"; };
-		AB2FC09420C8D270001FD658 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
+		AB2F636725ADF6B300B92B15 /* RManagerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RManagerConfiguration.swift; sourceTree = "<group>"; };
 		AB2FC0AA20C8D892001FD658 /* Bundle+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Retargetly.swift"; sourceTree = "<group>"; };
 		AB54BEE920D1D9D90073802C /* Error+Retargetly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+Retargetly.swift"; sourceTree = "<group>"; };
 		AB6080E520D6E441006BFD06 /* RLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLocationManager.swift; sourceTree = "<group>"; };
-		AB6080E720D71C1F006BFD06 /* CLLocation+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Retargetly.swift"; sourceTree = "<group>"; };
 		AB6E118120E0313C002864A4 /* RAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAppDelegate.swift; sourceTree = "<group>"; };
-		AB6E118320E07B9E002864A4 /* Notifications+Retargetly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notifications+Retargetly.swift"; sourceTree = "<group>"; };
 		AB928AF31F3B727E0032BB46 /* UIDevice+Retargetly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Retargetly.swift"; sourceTree = "<group>"; };
 		AB947F9E1F2F7742001A7440 /* Retargetly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Retargetly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB947FA11F2F7742001A7440 /* Retargetly.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Retargetly.h; sourceTree = "<group>"; };
@@ -84,13 +80,10 @@
 		AB66553C1F3CE1880086D111 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AB6E118320E07B9E002864A4 /* Notifications+Retargetly.swift */,
 				AB928AF31F3B727E0032BB46 /* UIDevice+Retargetly.swift */,
 				AB2343B81F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift */,
-				AB2FC09420C8D270001FD658 /* NetworkUtils.swift */,
 				AB2FC0AA20C8D892001FD658 /* Bundle+Retargetly.swift */,
 				AB54BEE920D1D9D90073802C /* Error+Retargetly.swift */,
-				AB6080E720D71C1F006BFD06 /* CLLocation+Retargetly.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -147,6 +140,7 @@
 				AB947FAD1F2F79DD001A7440 /* REvent.swift */,
 				AB6080E520D6E441006BFD06 /* RLocationManager.swift */,
 				AB6E118120E0313C002864A4 /* RAppDelegate.swift */,
+				AB2F636725ADF6B300B92B15 /* RManagerConfiguration.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -263,13 +257,11 @@
 			files = (
 				AB2FC0AB20C8D892001FD658 /* Bundle+Retargetly.swift in Sources */,
 				AB947FAC1F2F791E001A7440 /* RManager.swift in Sources */,
+				AB2F636825ADF6B300B92B15 /* RManagerConfiguration.swift in Sources */,
 				AB928AF41F3B727E0032BB46 /* UIDevice+Retargetly.swift in Sources */,
-				AB6080E820D71C1F006BFD06 /* CLLocation+Retargetly.swift in Sources */,
-				AB2FC09520C8D270001FD658 /* NetworkUtils.swift in Sources */,
 				AB6E118220E0313C002864A4 /* RAppDelegate.swift in Sources */,
 				AB2343B91F58619800A3ED03 /* CLLocationManagerDelegate+Retargetly.swift in Sources */,
 				AB947FAE1F2F79DD001A7440 /* REvent.swift in Sources */,
-				AB6E118420E07B9E002864A4 /* Notifications+Retargetly.swift in Sources */,
 				AB54BEEA20D1D9D90073802C /* Error+Retargetly.swift in Sources */,
 				AB6080E620D6E441006BFD06 /* RLocationManager.swift in Sources */,
 			);

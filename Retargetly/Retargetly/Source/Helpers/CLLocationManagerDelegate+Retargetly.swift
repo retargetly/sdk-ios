@@ -28,6 +28,6 @@ extension CLLocationManager {
     
     @objc func ret_startUpdatingLocation() {
         self.ret_startUpdatingLocation()
-        RManager.default.rLocationManager?.startGPSTrackTimer()
+        RManager.default?.rLocationManager?.startGPSTrackTimer()
     }
 }

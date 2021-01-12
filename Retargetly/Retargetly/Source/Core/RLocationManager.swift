@@ -14,15 +14,12 @@ import CoreLocation
     @objc optional func rLocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     /// Mirror for same method didFailWithError: on CLLocationManager
     @objc optional func rlocationManager(_ manager: CLLocationManager, didFailWith error: Error)
-    @objc optional func rLocationManager(_ manager: CLLocationManager, couldNotInitBecause error: NSError?)
 }
 
 /**
  Retargetly Location Service manager, allows to track GPS values.
  */
 @objcMembers public class RLocationManager: NSObject {
-    
-    typealias TimerCallback = () -> Void
     
     /// Motion values
     private enum RMotionValue: String {
@@ -67,22 +64,26 @@ import CoreLocation
                 startStateTrackTimer()
             }
             
-            RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "motionState \(motionState)")
+            if let manager = RManager.default {
+                manager.delegate?.rManager?(manager, didSendActionWith: "motionState \(motionState)")
+            }
         }
     }
     
     // MARK: - CoreLocation
     /// CoreLocation location manager
-    public private(set) var locationManager: CLLocationManager!
+    public private(set) var locationManager: CLLocationManager?
     
     /// Retargetly location delegate
     public weak var delegate: RLocationManagerDelegate?
     /// Last location received
-    fileprivate var lastLocation: CLLocation? = nil
+    fileprivate var lastLocation: CLLocation?
     
     // Timers
-    fileprivate var gpsTrackTimer: Timer?
-    fileprivate var stateTrackTimer: Timer?
+    fileprivate var gpsTrackTimer: DispatchSourceTimer?
+    fileprivate var stateTrackTimer: DispatchSourceTimer?
+    
+    private final let noneStateTrackTimerInterval: TimeInterval = -1
     private var stateTrackTimerInterval: TimeInterval {
         switch motionState {
         case .inMotion:
@@ -90,7 +91,7 @@ import CoreLocation
         case .noEnoughtMotion:
             return staticFrequency
         default:
-            return -1
+            return noneStateTrackTimerInterval
         }
     }
     
@@ -99,6 +100,10 @@ import CoreLocation
     }
     
     // MARK: - Initialization
+    
+    deinit {
+        stopTracking()
+    }
     
     convenience init(from serverValues: JSON?) {
         guard let serverValues = serverValues,
@@ -121,180 +126,157 @@ import CoreLocation
     private init(motionFrequency: TimeInterval = kMotionFrequency,
                  staticFrequency: TimeInterval = kStaticFrequency,
                  motionDetectionFrequency: TimeInterval = kMotionDetectionFrequency,
-                 motionThreshold: CLLocationDistance = kMotionDetectionFrequency) {
+                 motionThreshold: CLLocationDistance = kMotionThreshold) {
         
         self.motionFrequency = motionFrequency
         self.staticFrequency = staticFrequency
         self.motionDetectionFrequency = motionDetectionFrequency
         self.motionThreshold = motionThreshold
-        
         super.init()
-        self.configureCLLocationManager()
-        self.askLocationServiceIfNeeded()
+        DispatchQueue.main.async { [weak self] in
+            self?.configureCLLocationManager()
+        }
     }
     
     /// Configures the CLLocationManager inside RLocationManager
     /// This method checks if UIBackgroundModes:location is enable in info.plist file
-    private func configureCLLocationManager() {
-        DispatchQueue.main.sync { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            strongSelf.locationManager = CLLocationManager()
-            strongSelf.locationManager.delegate = self
-            strongSelf.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            strongSelf.locationManager.distanceFilter = kCLDistanceFilterNone
-            strongSelf.locationManager.pausesLocationUpdatesAutomatically = false
-            strongSelf.lastLocation = strongSelf.locationManager.location
-            
-            // Only if has background mode for location service
-            guard let info = Bundle.main.infoDictionary,
-            let backgroundModes = info["UIBackgroundModes"] as? [String : Any],
-                let _ = backgroundModes["location"] else {
-                    return
-            }
-            
-            if #available(iOS 9.0, *) {
-                strongSelf.locationManager.allowsBackgroundLocationUpdates = true
-            }
+     func configureCLLocationManager() {
+        defer {
+            askLocationServiceIfNeeded()
         }
+        
+        locationManager = CLLocationManager()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.distanceFilter = kCLDistanceFilterNone
+        locationManager?.pausesLocationUpdatesAutomatically = false
+        lastLocation = locationManager?.location
+        
+        // Only if has background mode for location service
+        guard let info = Bundle.main.infoDictionary,
+              let backgroundModes = info["UIBackgroundModes"] as? [String : Any],
+              let _ = backgroundModes["location"] else {
+            return
+        }
+        
+        locationManager?.allowsBackgroundLocationUpdates = true
     }
     
     /// Ask for location services authorization only if needed
     private func askLocationServiceIfNeeded() {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else {
-                return
+        // If forceGPS is required and location services are enabled
+        guard RManager.default?.config.forceGPS == true,
+              CLLocationManager.locationServicesEnabled()
+        else {
+            if let delegate = delegate,
+               let locationManager = locationManager {
+                delegate.rlocationManager?(locationManager,
+                                            didFailWith: RError.locationServiceNotAllowedOrDenied)
             }
-            
-            let manager = RManager.default
-            
-            // If forceGPS is required and location services are enabled
-            if manager.forceGPS {
-                if CLLocationManager.locationServicesEnabled() {
-                    strongSelf.locationManager.requestAlwaysAuthorization()
-                } else {
-                    strongSelf.delegate?.rLocationManager?(strongSelf.locationManager, couldNotInitBecause: NSError.errorFromRetargetlyError(.locationServiceNotAllowedOrDenied))
-                }
-            }
+            return
         }
+        
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
     }
     
     // MARK: - Track GPS
     
-    func startGPSTrackTimer(_ callback: TimerCallback? = nil) {
-        askLocationServiceIfNeeded()
+    func releaseTimer(_ timer: inout DispatchSourceTimer?) {
+        timer?.cancel()
+        timer?.setEventHandler(handler: nil)
+        timer = nil
+    }
+    
+    func createTimer(interval: TimeInterval,
+                     handler: DispatchSourceProtocol.DispatchSourceHandler?) -> DispatchSourceTimer {
+        let timer = DispatchSource.makeTimerSource()
+        timer.schedule(deadline: .now() + interval, repeating: interval)
+        timer.setEventHandler(handler: handler)
         
+        if #available(iOS 10.0, *) {
+            timer.activate()
+        } else {
+            timer.resume()
+        }
+        
+        return timer
+    }
+    
+    func startGPSTrackTimer() {
         // Operates only if track timer is nil
-        guard self.gpsTrackTimer == nil, RManager.default.sendGeoData else {
+        guard self.gpsTrackTimer == nil,
+              RManager.default?.config.sendGeoData == true,
+              let locationManager = locationManager else {
             return
         }
         
-        self.stopTracking {
-            // Creates and schedule the new track timer
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self,
-                      let locationManager = strongSelf.locationManager else {
-                    return
-                }
-                
-                strongSelf.sendTrackedLocation()
-                strongSelf.gpsTrackTimer = Timer.scheduledTimer(timeInterval: strongSelf.motionDetectionFrequency, target: locationManager, selector: #selector(locationManager.startUpdatingLocation), userInfo: nil, repeats: true)
-                locationManager.startUpdatingLocation()
-                
-                callback?()
-            }
-        }
+        releaseTimer(&gpsTrackTimer)
+        
+        // Creates and schedule the new track timer
+        sendTrackedLocation()
+        gpsTrackTimer = createTimer(interval: motionDetectionFrequency,
+                    handler: locationManager.startUpdatingLocation)
     }
     
-    private func stopGPSTrackTimer(_ callback: TimerCallback? = nil) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            strongSelf.gpsTrackTimer?.invalidate()
-            strongSelf.gpsTrackTimer = nil
-            callback?()
-        }
-    }
-    
-    func startStateTrackTimer(_ callback: TimerCallback? = nil) {
-        guard self.motionState != .unknown, RManager.default.sendGeoData else {
+    func startStateTrackTimer() {
+        guard RManager.default?.config.sendGeoData == true,
+              stateTrackTimerInterval != noneStateTrackTimerInterval else {
             return
         }
         
-        self.stopStateTrackTimer {
-            // Creates and schedule the new track timer
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self, strongSelf.stateTrackTimerInterval != -1 else {
-                    return
-                }
-                
-                strongSelf.stateTrackTimer = Timer.scheduledTimer(timeInterval: strongSelf.stateTrackTimerInterval, target: strongSelf, selector: #selector(strongSelf.sendTrackedLocation), userInfo: nil, repeats: true)
-                
-                callback?()
-            }
-        }
+        releaseTimer(&stateTrackTimer)
+        
+        // Creates and schedule the new track timer
+        stateTrackTimer = createTimer(interval: stateTrackTimerInterval,
+                                      handler: sendTrackedLocation)
     }
     
-    private func stopStateTrackTimer(_ callback: TimerCallback? = nil) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            strongSelf.stateTrackTimer?.invalidate()
-            strongSelf.stateTrackTimer = nil
-            callback?()
+    func stopTracking(removeDelegate: Bool = true) {
+        if removeDelegate {
+            locationManager?.delegate = nil
         }
-    }
-    
-    func stopTracking(_ callback: TimerCallback? = nil) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            strongSelf.locationManager.stopUpdatingLocation()
-            strongSelf.stopGPSTrackTimer()
-            strongSelf.stopStateTrackTimer()
-            strongSelf.motionState = .unknown
-            callback?()
-        }
+        locationManager?.stopUpdatingLocation()
+        releaseTimer(&gpsTrackTimer)
+        releaseTimer(&stateTrackTimer)
+        motionState = .unknown
     }
     
     // MARK: - Location Functionality
     
     fileprivate func doLocationFunctionality(with newLocation: CLLocation) {
-        guard let lastLocation = self.lastLocation else {
+        defer {
             self.lastLocation = newLocation
+        }
+        
+        guard let lastLocation = self.lastLocation,
+              let manager = RManager.default else {
             return
         }
         
         let distance = lastLocation.distance(from: newLocation)
-        RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "Covered meters: \(distance)")
+        manager.delegate?.rManager?(manager, didSendActionWith: "Covered meters: \(distance)")
         
-        if distance >= self.motionThreshold {
-            self.lastLocation = newLocation
-            self.motionState = .inMotion
-        } else {
-            self.motionState = .noEnoughtMotion
-        }
+        motionState = distance >= self.motionThreshold ?
+            .inMotion :
+            .noEnoughtMotion
     }
     
     @objc private func sendTrackedLocation() {
-        RManager.default.track(et: .geo, value: nil)
-        RManager.default.delegate?.rManager?(RManager.default, didSendActionWith: "GEO EVENT - Sent type \(self.motionState)")
+        guard let manager = RManager.default else {
+            return
+        }
+        
+        manager.track(et: .geo, value: nil)
+        manager.delegate?.rManager?(manager, didSendActionWith: "GEO EVENT - Sent type \(self.motionState)")
     }
+    
 }
 
 // MARK: - CLLocationManagerDelegate
 
 extension RLocationManager: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locationManager.stopUpdatingLocation()
+        self.locationManager?.stopUpdatingLocation()
         delegate?.rLocationManager?(manager, didUpdateLocations: locations)
         
         // Has a new location
@@ -310,7 +292,7 @@ extension RLocationManager: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if !CLLocationManager.isServiceUsable {
-            self.stopTracking()
+            self.stopTracking(removeDelegate: false)
         } else {
             self.startGPSTrackTimer()
         }

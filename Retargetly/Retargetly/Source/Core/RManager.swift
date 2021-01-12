@@ -14,15 +14,16 @@ import UIKit
 // MARK: - Swizzling implementation for CLLocationManager classes
 
 private let swizzlingCLLocationManager: (CLLocationManager.Type) -> () = { locationManager in
-
+    
     // startUpdatingLocation
     let originalSelector = #selector(locationManager.startUpdatingLocation)
     let swizzledSelector = #selector(locationManager.ret_startUpdatingLocation)
-
-    let originalMethod = class_getInstanceMethod(locationManager, originalSelector)
-    let swizzledMethod = class_getInstanceMethod(locationManager, swizzledSelector)
-
-    method_exchangeImplementations(originalMethod!, swizzledMethod!)
+    
+    guard let originalMethod = class_getInstanceMethod(locationManager, originalSelector),
+          let swizzledMethod = class_getInstanceMethod(locationManager, swizzledSelector)
+    else { return }
+    
+    method_exchangeImplementations(originalMethod, swizzledMethod)
 }
 
 // MARK: - Internal Helpers
@@ -40,7 +41,7 @@ fileprivate enum EndpointParam: String {
 }
 
 @objc public protocol RManagerDelegate: class {
-    /// In order to provide UI assistance
+    /// In order to provide UI assistance, you should ensure to display on main thread
     @objc optional func rManager(_ manager: RManager, didSendActionWith message: String)
 }
 
@@ -49,7 +50,7 @@ fileprivate enum EndpointParam: String {
 /**
  Events Manager, allows to track events.
  
- Manages an singleton property named 'default' for its use
+ Manages a singleton property named 'default' for its use
 */
 @objcMembers public class RManager: NSObject {
     
@@ -57,13 +58,9 @@ fileprivate enum EndpointParam: String {
     
     let app: String
     let appn: String
-    let sourceHash: String
-    let forceGPS: Bool
-    let sendGeoData: Bool
-    let sendLanguageEnabled: Bool
-    let sendManufacturerEnabled: Bool
-    let sendDeviceNameEnabled: Bool
-    let sendWifiNameEnabled: Bool
+    
+    let config: RManagerConfiguration
+    
     final let mf: String = "Apple Inc."
     let device: String
     let language: String?
@@ -78,7 +75,7 @@ fileprivate enum EndpointParam: String {
         }
     }
     var relatedID : String? {
-        guard let deeplinkMessage = RManager.deeplink?.host?.removingPercentEncoding,
+        guard let deeplinkMessage = Self.deeplink?.host?.removingPercentEncoding,
             let userIdRange = deeplinkMessage.range(of: "user_id=") else {
             return nil
         }
@@ -90,70 +87,32 @@ fileprivate enum EndpointParam: String {
     public private(set) var rLocationManager: RLocationManager? = nil
     public var delegate: RManagerDelegate? = nil {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                if let delegate = strongSelf.delegate {
-                    let trackerValues = strongSelf.rLocationManager?.description ?? ""
-                    delegate.rManager?(strongSelf, didSendActionWith: "GPS tracker values: \(trackerValues)")
-                }
+            if let delegate = delegate {
+                let trackerValues = rLocationManager?.description ?? ""
+                delegate.rManager?(self,
+                                   didSendActionWith: "GPS tracker values: \(trackerValues)")
             }
         }
     }
-    
-    private static var shared: RManager! = nil
     
     /// Singleton instance
-    public static var `default`: RManager {
-        get {
-            if shared == nil {
-                fatalError(RError.initializationFatal.errorDescription!)
-            }
-            
-            return shared
-        }
-    }
-    
-    public override var description: String {
-        return """
-        forceGPS: \(forceGPS)
-        sendGeoData: \(sendGeoData)
-        sendLanguageEnabled: \(sendLanguageEnabled)
-        sendManufacturerEnabled: \(sendManufacturerEnabled)
-        sendDeviceNameEnabled: \(sendDeviceNameEnabled)
-        sendWifiNameEnabled: \(sendWifiNameEnabled)
-        """
-    }
+    public private(set) static var `default`: RManager?
     
     // MARK: - Methods
     
-    private init(with sourceHash: String,
-                 sendGeoData: Bool,
-                 forceGPS: Bool,
-                 sendLanguageEnabled: Bool,
-                 sendManufacturerEnabled: Bool,
-                 sendDeviceNameEnabled: Bool,
-                 sendWifiNameEnabled: Bool) {
-        
-        guard let app = Bundle.main.bundleIdentifier, let appn = Bundle.main.displayName,
-            !sourceHash.isEmpty
-            else {
-                fatalError(RError.initializationFieldsFatal.errorDescription!)
+    private init(config: RManagerConfiguration)  throws {
+        guard let app = Bundle.main.bundleIdentifier,
+              let appn = Bundle.main.displayName,
+              !config.sourceHash.isEmpty
+        else {
+            throw RError.initializationFieldsFatal
         }
         
         self.app = app
         self.appn = appn
-        self.sourceHash = sourceHash
-        self.forceGPS = forceGPS
-        self.sendGeoData = sendGeoData
         self.device = UIDevice.current.modelName
         self.language = Locale.current.languageCode
-        self.sendLanguageEnabled = sendLanguageEnabled
-        self.sendManufacturerEnabled = sendManufacturerEnabled
-        self.sendDeviceNameEnabled = sendDeviceNameEnabled
-        self.sendWifiNameEnabled = sendWifiNameEnabled
+        self.config = config
         
         super.init()
         swizzlingCLLocationManager(CLLocationManager.self)
@@ -171,7 +130,7 @@ fileprivate enum EndpointParam: String {
         }
     }
     
-    /// Initialization with full control
+    /// Obj-C brigde builder
     public static func initiate(with sourceHash: String,
                                 sendGeoData: Bool = true,
                                 forceGPS: Bool = false,
@@ -180,33 +139,60 @@ fileprivate enum EndpointParam: String {
                                 sendDeviceNameEnabled: Bool = true,
                                 sendWifiNameEnabled: Bool = true,
                                 callback: CallbackWithError? = nil) {
-        
-        // Turn off previous implementation
-        if shared != nil {
-            shared.rLocationManager?.stopTracking()
-        }
-        
-        shared = RManager(with: sourceHash, sendGeoData: sendGeoData, forceGPS: forceGPS, sendLanguageEnabled: sendLanguageEnabled, sendManufacturerEnabled: sendManufacturerEnabled, sendDeviceNameEnabled: sendDeviceNameEnabled, sendWifiNameEnabled: sendWifiNameEnabled)
-        shared.initiateSDKWithServer { (json, initWithServerError) in
-            shared.track(et: .open, value: nil, callback: { (error) in
-                if !(!shared.sendGeoData && !shared.forceGPS) {
-                    shared.rLocationManager = RLocationManager(from: json)
+        let config = RManagerConfiguration(sourceHash: sourceHash,
+                                           sendGeoData: sendGeoData,
+                                           forceGPS: forceGPS,
+                                           sendLanguageEnabled: sendLanguageEnabled,
+                                           sendManufacturerEnabled: sendManufacturerEnabled,
+                                           sendDeviceNameEnabled: sendDeviceNameEnabled,
+                                           sendWifiNameEnabled: sendWifiNameEnabled)
+        initiate(with: config, callback: callback)
+    }
+    
+    /// Initialization with full control
+    /// We manage errors via callback since the initialization requires an async call
+    public static func initiate(with config: RManagerConfiguration, callback: CallbackWithError? = nil) {
+        do {
+            let manager = try RManager(config: config)
+            
+            manager.initiateSDKWithServer { (json, initWithServerError) in
+                guard initWithServerError == nil else {
+                    callback?(initWithServerError)
+                    return
                 }
-                RManager.processDeeplink()
-                callback?(error ?? initWithServerError)
-            })
+                
+                // Override
+                Self.default?.rLocationManager?.stopTracking()
+                Self.default = manager
+                
+                if !(!manager.config.sendGeoData && !manager.config.forceGPS) {
+                    manager.rLocationManager = RLocationManager(from: json)
+                }
+                
+                manager.track(et: .open, value: nil, callback: { (error) in
+                    guard error == nil else {
+                        callback?(error)
+                        return
+                    }
+                    
+                    Self.processDeeplink(callback)
+                })
+            }
+        } catch  {
+            callback?(error)
         }
     }
     
     // MARK: - Track functionality
     
-    static private func processDeeplink() {
-        guard let manager = RManager.shared, let deeplink = deeplink else {
+    static private func processDeeplink(_ callback: CallbackWithError? = nil) {
+        guard let manager = Self.default, let deeplink = deeplink else {
+            callback?(nil)
             return
         }
         
         manager.delegate?.rManager?(manager, didSendActionWith: "DEEPLINK EVENT - \(deeplink)")
-        manager.track(et: .deeplink, value: nil)
+        manager.track(et: .deeplink, value: nil, callback: callback)
     }
     
     /**
@@ -214,89 +200,66 @@ fileprivate enum EndpointParam: String {
      Uses conection to an endpoint
     */
     public func track(value: JSON?, callback: CallbackWithError? = nil) {
-        RManager.default.track(et: .custom, value: value, callback: callback)
+        track(et: .custom, value: value, callback: callback)
     }
     
     internal func track(et: REventType, value: JSON?, callback: CallbackWithError? = nil) {
+        // 'open' and value not allowed
         if et == .open && value != nil {
-            fatalError(RError.openEventWithValue.errorDescription!)
+            callback?(RError.openEventWithValue)
+            return
         }
         
         let event = REvent(et: et, value: value)
-        RManager.default.track(event: event, callback: callback)
+        track(event: event, callback: callback)
     }
     
     private func initiateSDKWithServer(_ callback: @escaping ApiCallbackWithError) {
         let endpoint = EndpointType.initiate.rawValue
-        guard let url = URL(string: endpoint + "/params?source_hash=\(self.sourceHash)") else {
-            callback(nil, NSError.errorFromRetargetlyError(.malformedURL))
+        guard let url = URL(string: endpoint + "/params?source_hash=\(self.config.sourceHash)") else {
+            callback(nil, RError.malformedURL)
             return
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.addValue(self.sourceHash, forHTTPHeaderField: EndpointParam.sourceHash.rawValue)
+        request.addValue(self.config.sourceHash, forHTTPHeaderField: EndpointParam.sourceHash.rawValue)
         
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
-            guard error == nil else {
-                callback(nil, error)
+            guard error == nil,
+                  let data = data,
+                  !data.isEmpty,
+                  let json = try? JSONSerialization.jsonObject(with: data, options: []) as? JSON else {
+                callback(nil, error ?? RError.responseDataNotFound)
                 return
             }
             
-            guard let data = data else {
-                callback(nil, NSError.errorFromRetargetlyError(.responseDataNotFound))
-                return
-            }
-            
-            guard !data.isEmpty else {
-                fatalError(RError.possibleInvalidSourceHash.errorDescription!)
-            }
-            
-            do {
-                guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSON else {
-                    callback(nil, NSError.errorFromRetargetlyError(.responseDataNotSerilizable))
-                    return
-                }
-                
-                callback(json, nil)
-            } catch {
-                callback(nil, error)
-            }
-            }
-            .resume()
+            callback(json, nil)
+        }
+        .resume()
     }
     
     private func track(event: REvent, callback: CallbackWithError? = nil) {
-        
         let endpoint = EndpointType.track.rawValue
         
-        event.getParams { (params) in
-            guard let parameters = params else {
-                callback?(NSError.errorFromRetargetlyError(.noInformationOnEvent))
-                return
-            }
-            
-            guard let url = URL(string: endpoint + "?source_hash=\(RManager.default.sourceHash)") else {
-                callback?(NSError.errorFromRetargetlyError(.malformedURL))
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-                fatalError(RError.malformedParams.errorDescription!)
-            }
-            
-            request.httpBody = httpBody
-            
-            let session = URLSession.shared
-            session.dataTask(with: request) { (data, response, error) in
-                callback?(error)
-                }
-                .resume()
+        guard let parameters = event.params,
+              let url = URL(string: endpoint + "?source_hash=\(self.config.sourceHash)"),
+              let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            callback?(RError.noInformationOnEvent)
+            return
         }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            callback?(error)
+        }
+        .resume()
     }
+    
 }
