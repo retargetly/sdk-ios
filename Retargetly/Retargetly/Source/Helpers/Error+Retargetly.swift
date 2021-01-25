@@ -35,7 +35,7 @@ import Foundation
         case .openEventWithValue: return NSLocalizedString("Please don't provide a 'value' for <open> event.", comment: "")
         case .noInformationOnEvent: return NSLocalizedString("Event without params to send.", comment: "")
         case .malformedURL: return NSLocalizedString("The URL is malformed, please check it.", comment: "")
-        case .responseDataNotFound: return NSLocalizedString("There is no data response, please try again.", comment: "")
+        case .responseDataNotFound: return NSLocalizedString("An error has occurred while connecting to Retargetly's servers. You've probably setup a wrong source hash, please contact your Retargetly's account manager to validate it.", comment: "")
         case .locationServiceNotAllowedOrDenied: return NSLocalizedString("The Location Service is not allowed or is denied to this app, please review it on app's Settings.", comment: "")
         }
     }
