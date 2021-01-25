@@ -31,7 +31,7 @@ import Foundation
     
     public var errorDescription: String? {
         switch self {
-        case .initializationFieldsFatal: return NSLocalizedString("Please initialize RManager correctly, some fields are empty or not allowed.", comment: "")
+        case .initializationFieldsFatal: return NSLocalizedString("Please initialize RManager correctly, source hash is mandatory. If you don't have one, please contact your Retargetly's account manager to get it.", comment: "")
         case .openEventWithValue: return NSLocalizedString("Please don't provide a 'value' for <open> event.", comment: "")
         case .noInformationOnEvent: return NSLocalizedString("Event without params to send.", comment: "")
         case .malformedURL: return NSLocalizedString("The URL is malformed, please check it.", comment: "")
