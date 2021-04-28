@@ -149,7 +149,7 @@ The 'custom' event, allows you to have an complation callback, and it might have
 
 ## Privacy
 
-The SDK sends an [*advertisingidentifier (IDFA)*](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier) if possible, from iOS 14.5+ is required to add a key-value [*NSUserTrackingUsageDescription*](https://developer.apple.com/app-store/user-privacy-and-data-use/) in the 'info.plist'.
+The SDK sends an [*advertising identifier (IDFA)*](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier) if possible, from iOS 14.5+ is required to add a key-value [*NSUserTrackingUsageDescription*](https://developer.apple.com/app-store/user-privacy-and-data-use/) in the 'info.plist'.
 
 ## Built With
 
