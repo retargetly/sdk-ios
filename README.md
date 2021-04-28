@@ -147,6 +147,10 @@ func anAction() {
 
 The 'custom' event, allows you to have an complation callback, and it might have an 'error' object if it occurred. You can send an JSON style object like  [String: Any] on the 'value' param.
 
+## Privacy
+
+The SDK sends an [*advertisingidentifier (IDFA)*](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier) if possible, from iOS 14.5+ is required to add a key-value [*NSUserTrackingUsageDescription*](https://developer.apple.com/app-store/user-privacy-and-data-use/) in the 'info.plist'.
+
 ## Built With
 
 * [Swift 5](https://swift.org/documentation/) - Programming language

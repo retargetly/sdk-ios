@@ -6,10 +6,9 @@
 //  Copyright © 2018 Retargetly. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
-@objc public protocol RLocationManagerDelegate: class {
+@objc public protocol RLocationManagerDelegate: AnyObject {
     /// Mirror for same method didUpdateLocations: on CLLocationManager
     @objc optional func rLocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     /// Mirror for same method didFailWithError: on CLLocationManager

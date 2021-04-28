@@ -9,7 +9,7 @@ s.requires_arc = true
 
 
 # 2
-s.version = '1.3.0'
+s.version = '1.3.1'
 
 
 # 3

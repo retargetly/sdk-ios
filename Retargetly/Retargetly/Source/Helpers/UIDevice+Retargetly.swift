@@ -6,7 +6,7 @@
 //  Copyright © 2017 Retargetly. All rights reserved.
 //
 
-import UIKit
+import UIKit.UIDevice
 import SystemConfiguration.CaptiveNetwork
 
 //https://gist.github.com/adamawolf/3048717
@@ -23,7 +23,7 @@ internal extension UIDevice {
         }
         
         switch identifier {
-        case "i386", "x86_64" : return "iPhone Simulator"
+        case "i386", "x86_64", "arm64" : return "iPhone Simulator"
         case "iPhone1,1" : return "iPhone"
         case "iPhone1,2" : return "iPhone 3G"
         case "iPhone2,1" : return "iPhone 3GS"
@@ -154,6 +154,14 @@ internal extension UIDevice {
         case "Watch5,2" : return "Apple Watch Series 5 44mm case (GPS)"
         case "Watch5,3" : return "Apple Watch Series 5 40mm case (GPS+Cellular)"
         case "Watch5,4" : return "Apple Watch Series 5 44mm case (GPS+Cellular)"
+        case "Watch5,9" : return "Apple Watch SE 40mm case (GPS)"
+        case "Watch5,10" : return "Apple Watch SE 44mm case (GPS)"
+        case "Watch5,11" : return "Apple Watch SE 40mm case (GPS+Cellular)"
+        case "Watch5,12" : return "Apple Watch SE 44mm case (GPS+Cellular)"
+        case "Watch6,1" : return "Apple Watch Series 6 40mm case (GPS)"
+        case "Watch6,2" : return "Apple Watch Series 6 44mm case (GPS)"
+        case "Watch6,3" : return "Apple Watch Series 6 40mm case (GPS+Cellular)"
+        case "Watch6,4" : return "Apple Watch Series 6 44mm case (GPS+Cellular)"
         default : return identifier
         }
     }

@@ -6,8 +6,6 @@
 //  Copyright © 2018 Retargetly. All rights reserved.
 //
 
-import Foundation
-
 internal extension Bundle {
     var displayName: String? {
         let name = object(forInfoDictionaryKey: "CFBundleDisplayName") as? String

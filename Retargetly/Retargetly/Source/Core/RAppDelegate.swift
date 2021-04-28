@@ -6,8 +6,6 @@
 //  Copyright © 2018 Retargetly. All rights reserved.
 //
 
-import UIKit
-
 /// Custom class that allows to receive externals deeplink with the SDK
 @objcMembers open class RAppDelegate: UIResponder, UIApplicationDelegate {
     

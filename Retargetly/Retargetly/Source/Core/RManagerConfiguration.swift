@@ -6,8 +6,6 @@
 //  Copyright © 2021 Retargetly. All rights reserved.
 //
 
-import Foundation
-
 /**
  Encapsuled trivial configuration
 */

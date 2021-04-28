@@ -6,7 +6,6 @@
 //  Copyright © 2017 Retargetly. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
 /// Type JSON
@@ -81,7 +80,7 @@ internal struct REvent {
         var parameters: JSON =
             [
                 REventParam.et.rawValue : self.et.rawValue,
-                REventParam.uid.rawValue : manager.uid ?? "",
+                REventParam.uid.rawValue : manager.uid,
                 REventParam.app.rawValue : manager.app,
                 REventParam.appn.rawValue : manager.appn,
                 REventParam.sourceHash.rawValue : manager.config.sourceHash

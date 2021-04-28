@@ -7,7 +7,6 @@
 //
 
 import CoreLocation
-import Foundation
 
 extension CLLocationManager {
     /// Use this var to check if service is usable. It means, the service is active, and ready to use.
